@@ -2,108 +2,92 @@ import '@pixi/layout';
 import { Application, extend } from '@pixi/react';
 import { LayoutContainer, LayoutText } from '@pixi/layout/components';
 import { LayoutResizer } from './LayoutResizer';
-import { useState } from 'react';
-import { LayoutOptions } from '@pixi/layout';
 
 extend({
   LayoutText,
   LayoutContainer,
 });
-
-export function App() {
-  // const [count] = useState(15);
-  // const array = [];
-  // for (let i = 0; i < count; i++) {
-  //   array.push(i);
-  // }
-  // const [Array] = useState(['#ff0000', '#00ff00', '#0000ff', '#1099bb']);
-  const width = 50;
-  const height = 50;
-  const backgroundColor = '#00ff00';
-  const containerW = width * 5;
-  const containerH = height * 3;
-  const containerLayout = {
-    width: containerW,
-    height: containerH,
-    padding: 0,
-    alignContent: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-  } as LayoutOptions;
-  const array = [];
-  for (let i = 0; i < 3; i++) {
-    for (let j = 0; j < 5; j++) {
-      array.push({ y: i, x: j });
-    }
+const fenceBase = 10;
+const squareBase = 50;
+const func = (result: any[], j: number) => {
+  for (let i = 0; i <= 5; i++) {
+    const pointKey = i + '-' + j + '-point';
+    result.push(
+      <layoutContainer
+        key={pointKey}
+        layout={{ width: fenceBase, height: fenceBase, backgroundColor: '#ffffff' }}
+        onClick={(e: Event) => {
+          e.stopPropagation();
+          console.log(pointKey);
+        }}
+      />
+    );
+    if (i == 5) continue;
+    const fenceKey = i + '-' + j + '-fenceH';
+    result.push(
+      <layoutContainer
+        key={fenceKey}
+        layout={{ width: squareBase, height: fenceBase, backgroundColor: '#000000' }}
+        onClick={(e: Event) => {
+          e.stopPropagation();
+          console.log(fenceKey);
+        }}
+      />
+    );
   }
-
+};
+const func1 = (result: any[], j: number) => {
+  for (let i = 0; i <= 5; i++) {
+    const fenceKey = i + '-' + j + '-fenceV';
+    result.push(
+      <layoutContainer
+        key={fenceKey}
+        layout={{ width: fenceBase, height: squareBase, backgroundColor: '#000000' }}
+        onClick={(e: Event) => {
+          e.stopPropagation();
+          console.log(fenceKey);
+        }}
+      />
+    );
+    if (i == 5) continue;
+    const placeKey = i + '-' + j + '-place';
+    result.push(
+      <layoutContainer
+        key={placeKey}
+        layout={{ width: squareBase, height: squareBase, backgroundColor: '#00ff00' }}
+        onClick={(e: Event) => {
+          e.stopPropagation();
+          console.log(placeKey);
+        }}
+      >
+        <layoutText text={placeKey} />
+      </layoutContainer>
+    );
+  }
+};
+const Content = () => {
+  const result: any[] = [];
+  for (let i = 0; i <= 3; i++) {
+    func(result, i);
+    if (i == 3) continue;
+    func1(result, i);
+  }
+  return result;
+};
+export function App() {
+  const containerW = squareBase * 5 + fenceBase * (5 + 1);
   return (
     <Application background={'#1099bb'} resizeTo={window}>
       <LayoutResizer>
-        <layoutContainer layout={containerLayout}>
-          {array.map(({ x, y }) => (
-            <layoutContainer
-              key={x + ':' + y}
-              layout={{
-                width,
-                height,
-                backgroundColor,
-                flexDirection: 'row',
-                alignContent: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <layoutText text={x + ':' + y} />
-            </layoutContainer>
-          ))}
-        </layoutContainer>
-        <layoutContainer layout={{ ...containerLayout, position: 'absolute', alignContent: 'flex-start' }}>
-          {Array.from({ length: 20 }, (_, i) => i + 1).map((i) => (
-            <layoutContainer
-              layout={{
-                width,
-                height: 10,
-                backgroundColor: '#ffffff',
-                marginBottom: (containerH - 40) / 3,
-              }}
-            >
-              <layoutText text={i - 1} />
-            </layoutContainer>
-          ))}
-        </layoutContainer>
         <layoutContainer
           layout={{
-            ...containerLayout,
-            position: 'absolute',
-            flexDirection: 'column',
+            width: containerW,
+            // height: containerH,
+            flexWrap: 'wrap',
             alignContent: 'flex-start',
-            justifyContent: 'flex-start',
-            // marginTop: -10,
-            // marginLeft: 10,
           }}
         >
-          {Array.from({ length: 3 }, (_, i) => i + 1).map((_, i) => (
-            <layoutContainer
-              layout={{
-                width: containerLayout.width,
-                justifyContent: 'space-between',
-              }}
-            >
-              {Array.from({ length: 6 }, (_, i) => i + 1).map((_, j) => (
-                <layoutContainer
-                  layout={{
-                    width: 10,
-                    height,
-                    backgroundColor: '#ffff00',
-                    // marginRight: (containerW - 6 * 10) / 5,
-                  }}
-                >
-                  <layoutText text={i * 6 + j} />
-                </layoutContainer>
-              ))}
-            </layoutContainer>
-          ))}
+          <Content />
         </layoutContainer>
       </LayoutResizer>
     </Application>
