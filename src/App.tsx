@@ -1,68 +1,35 @@
 import '@pixi/layout';
 import { Application, extend } from '@pixi/react';
-import { LayoutContainer, LayoutText } from '@pixi/layout/components';
+import { LayoutContainer, LayoutGraphics, LayoutText, LayoutView } from '@pixi/layout/components';
 import { LayoutResizer } from './LayoutResizer';
-
+import { Container, Graphics, Text } from 'pixi.js';
+import { useState } from 'react';
+import { state } from './store';
+import { useSnapshot } from 'valtio';
+import { Point } from './Point';
+import { Fence } from './Fence';
+import { Place } from './Place';
 extend({
   LayoutText,
   LayoutContainer,
+  LayoutView,
+  Graphics,
 });
+
 const fenceBase = 10;
 const squareBase = 50;
 const func = (result: any[], j: number) => {
   for (let i = 0; i <= 5; i++) {
-    const pointKey = i + '-' + j + '-point';
-    result.push(
-      <layoutContainer
-        key={pointKey}
-        layout={{ width: fenceBase, height: fenceBase, backgroundColor: '#ffffff' }}
-        onClick={(e: Event) => {
-          e.stopPropagation();
-          console.log(pointKey);
-        }}
-      />
-    );
+    result.push(<Point i={i} j={j} />);
     if (i == 5) continue;
-    const fenceKey = i + '-' + j + '-fenceH';
-    result.push(
-      <layoutContainer
-        key={fenceKey}
-        layout={{ width: squareBase, height: fenceBase, backgroundColor: '#000000' }}
-        onClick={(e: Event) => {
-          e.stopPropagation();
-          console.log(fenceKey);
-        }}
-      />
-    );
+    result.push(<Fence i={i} j={j} />);
   }
 };
 const func1 = (result: any[], j: number) => {
   for (let i = 0; i <= 5; i++) {
-    const fenceKey = i + '-' + j + '-fenceV';
-    result.push(
-      <layoutContainer
-        key={fenceKey}
-        layout={{ width: fenceBase, height: squareBase, backgroundColor: '#000000' }}
-        onClick={(e: Event) => {
-          e.stopPropagation();
-          console.log(fenceKey);
-        }}
-      />
-    );
+    result.push(<Fence i={i} j={j} isVertical={true} />);
     if (i == 5) continue;
-    const placeKey = i + '-' + j + '-place';
-    result.push(
-      <layoutContainer
-        key={placeKey}
-        layout={{ width: squareBase, height: squareBase, backgroundColor: '#00ff00' }}
-        onClick={(e: Event) => {
-          e.stopPropagation();
-          console.log(placeKey);
-        }}
-      >
-        <layoutText text={placeKey} />
-      </layoutContainer>
-    );
+    result.push(<Place i={i} j={j} />);
   }
 };
 const Content = () => {
@@ -82,7 +49,6 @@ export function App() {
         <layoutContainer
           layout={{
             width: containerW,
-            // height: containerH,
             flexWrap: 'wrap',
             alignContent: 'flex-start',
           }}
