@@ -6,6 +6,7 @@ export const LayoutResizer: FC<any> = <T extends any>({ children }: { children: 
   app.stage.layout = {
     width: window.innerWidth,
     height: window.innerHeight,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   };
