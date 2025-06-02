@@ -2,6 +2,8 @@ import { extend } from '@pixi/react';
 import { squareBase } from '../config';
 import { fenceSetStoreToggle } from '../../store/fenceSetStore';
 import { LayoutContainer, LayoutText } from '@pixi/layout/components';
+import { fenceHoverSetStore, fenceHoverSetStoreToggle } from '../../store/fenceHoverSetStore';
+import { editModeStore } from '../../store/editModeStore';
 // import { CustomText } from './CustomText';
 extend({
   LayoutContainer,
@@ -13,7 +15,8 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
   return (
     <layoutContainer
       layout={{ width: squareBase, height: squareBase, backgroundColor: '#00ff00', alignItems: 'center' }}
-      onClick={(e: Event) => {
+      onPointerTap={(e: Event) => {
+        if (editModeStore.mode != 'square') return;
         e.stopPropagation();
         [
           i + '-' + j + '-fenceH',
@@ -21,6 +24,36 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
           i + '-' + j + '-fenceV',
           i + 1 + '-' + j + '-fenceV',
         ].map((v) => fenceSetStoreToggle(v));
+      }}
+      onPointerOver={(e: Event) => {
+        if (editModeStore.mode != 'square') return;
+        e.stopPropagation();
+        [
+          i + '-' + j + '-fenceH',
+          i + '-' + (j + 1) + '-fenceH',
+          i + '-' + j + '-fenceV',
+          i + 1 + '-' + j + '-fenceV',
+        ].map((v) => fenceHoverSetStore.add(v));
+      }}
+      onPointerCancel={(e: Event) => {
+        if (editModeStore.mode != 'square') return;
+        e.stopPropagation();
+        [
+          i + '-' + j + '-fenceH',
+          i + '-' + (j + 1) + '-fenceH',
+          i + '-' + j + '-fenceV',
+          i + 1 + '-' + j + '-fenceV',
+        ].map((v) => fenceHoverSetStore.delete(v));
+      }}
+      onPointerOut={(e: Event) => {
+        if (editModeStore.mode != 'square') return;
+        e.stopPropagation();
+        [
+          i + '-' + j + '-fenceH',
+          i + '-' + (j + 1) + '-fenceH',
+          i + '-' + j + '-fenceV',
+          i + 1 + '-' + j + '-fenceV',
+        ].map((v) => fenceHoverSetStore.delete(v));
       }}
     >
       {/* <CustomText text={key} style={{ fontSize: 10 }} /> */}
