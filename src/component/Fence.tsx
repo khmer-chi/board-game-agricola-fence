@@ -1,36 +1,32 @@
-import { useEffect, useState } from 'react';
-import { fenceSetStoreToggle, fenceSetStore } from '../../store/fenceSetStore';
-import { fenceHoverSetStoreToggle, fenceHoverSetStore } from '../../store/fenceHoverSetStore';
+import { objectKeySetStoreToggle, objectKeySetStore } from '../store/objectKeySetStore';
 import { fenceBase, squareBase } from '../config';
 import { extend } from '@pixi/react';
 import { LayoutContainer } from '@pixi/layout/components';
-import { proxy, subscribe, useSnapshot } from 'valtio';
-import { editModeStore } from '../../store/editModeStore';
+import { useSnapshot } from 'valtio';
+import { settingStore } from '../store/settingStore';
 extend({ LayoutContainer });
+const useBackgroundColor = (key: string) => {
+  const $objectKeySetStore = useSnapshot(objectKeySetStore);
+  if ($objectKeySetStore.has(key)) return '#ff0000';
+  if ($objectKeySetStore.has('hover-' + key)) return '#aa0000';
+  return '#000000';
+};
 export const Fence = ({ i, j, isVertical = false }: { i: number; j: number; isVertical?: boolean }) => {
   const key = i + '-' + j + '-fence' + (isVertical ? 'V' : 'H');
-  const $fenceSetStore = useSnapshot(fenceSetStore);
-  const $fenceHoverSetStore = useSnapshot(fenceHoverSetStore);
-  // const [isHover, setIsHover] = useState(false);
-
+  const backgroundColor = useBackgroundColor(key);
   const width = isVertical ? fenceBase : squareBase;
   const height = isVertical ? squareBase : fenceBase;
-  const backgroundColor = (() => {
-    if ($fenceSetStore.has(key)) return '#ff0000';
-    if ($fenceHoverSetStore.has(key)) return '#aa0000';
-    return '#000000';
-  })();
   const handler = (e: Event) => {
-    if (editModeStore.mode != 'edge') return;
+    if (settingStore.mode != 'edge') return;
     e.stopPropagation();
     if (e.type == 'click') {
-      return fenceSetStoreToggle(key);
+      return objectKeySetStoreToggle(key);
     }
     if (e.type == 'pointerover') {
-      return fenceHoverSetStore.add(key);
+      return objectKeySetStore.add('hover-' + key);
     }
     if (e.type == 'pointerout') {
-      return fenceHoverSetStore.delete(key);
+      return objectKeySetStore.delete('hover-' + key);
     }
   };
   return (

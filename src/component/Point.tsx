@@ -1,7 +1,7 @@
 import { extend } from '@pixi/react';
 import { fenceBase } from '../config';
 import { Graphics, LayoutContainer } from '@pixi/layout/components';
-import { editModeStore } from '../../store/editModeStore';
+import { settingStore } from '../store/settingStore';
 extend({
   LayoutContainer,
   Graphics,
@@ -12,7 +12,7 @@ export const Point = ({ i, j }: { i: number; j: number }) => {
     <layoutContainer
       layout={{ width: fenceBase, height: fenceBase }}
       onClick={(e: Event) => {
-        if (editModeStore.mode != 'point') return;
+        if (settingStore.mode != 'point') return;
         e.stopPropagation();
       }}
     >

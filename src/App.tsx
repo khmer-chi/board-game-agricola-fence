@@ -3,14 +3,15 @@ import { Application } from '@pixi/react';
 import { LayoutResizer } from './component/LayoutResizer';
 import { fenceBase, squareBase } from './config';
 import { Content } from './component/Content';
-import { fenceSetStore } from '../store/fenceSetStore';
-import { editModeStore, editModeArray } from '../store/editModeStore';
+import { objectKeySetStore } from './store/objectKeySetStore';
+import { settingStore } from './store/settingStore';
 import { CustomText } from './component/CustomText';
 import { useSnapshot } from 'valtio';
+import { ModeArray } from './schema/ModeSchema';
 export function App() {
-  const $editModeStore = useSnapshot(editModeStore);
+  const $settingStore = useSnapshot(settingStore);
   const containerW = squareBase * 5 + fenceBase * (5 + 1);
-  const fenceSetStoreSnap = useSnapshot(fenceSetStore);
+  const $objectKeySetStore = useSnapshot(objectKeySetStore);
   return (
     <Application background={'#1099bb'} resizeTo={window}>
       <LayoutResizer>
@@ -25,14 +26,14 @@ export function App() {
           }}
         >
           <CustomText text={'mode:'} style={{ fontSize: 20 }} />
-          {editModeArray.map((text) => {
+          {ModeArray.map((text) => {
             return (
               <layoutContainer
                 key={text}
-                layout={{ backgroundColor: $editModeStore.mode == text ? '#000011' : '#0000ff', padding: 10 }}
+                layout={{ backgroundColor: $settingStore.mode == text ? '#000011' : '#0000ff', padding: 10 }}
                 onPointerTap={(e: Event) => {
                   e.stopPropagation();
-                  editModeStore.mode = text;
+                  settingStore.mode = text;
                 }}
               >
                 <CustomText
@@ -52,7 +53,7 @@ export function App() {
                   }}
                   style={{ fill: '#ffffff', fontSize: 20 }}
                   onPointerTap={() => {
-                    editModeStore.mode = text;
+                    settingStore.mode = text;
                   }}
                 /> */}
               </layoutContainer>
@@ -72,7 +73,7 @@ export function App() {
             gap: 10,
           }}
         >
-          <CustomText text={'fence:' + fenceSetStoreSnap.size} style={{ fontSize: 20 }} />
+          <CustomText text={'fence:' + $objectKeySetStore.size} style={{ fontSize: 20 }} />
         </layoutContainer>
         <layoutContainer
           layout={{
@@ -89,7 +90,7 @@ export function App() {
             layout={{ width: 'intrinsic', height: 'intrinsic', backgroundColor: '#0000ff', padding: 2, marginTop: 5 }}
             style={{ fill: '#ffffff', fontSize: 20 }}
             onPointerTap={() => {
-              fenceSetStore.clear();
+              objectKeySetStore.clear();
             }}
           />
         </layoutContainer>
