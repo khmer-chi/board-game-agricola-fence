@@ -3,10 +3,12 @@ import { squareBase } from '../config';
 import { objectKeySetStore, objectKeySetStoreToggle } from '../store/objectKeySetStore';
 import { LayoutContainer, LayoutText } from '@pixi/layout/components';
 import { settingStore } from '../store/settingStore';
+import { commonHandler } from '../commonHandler';
 extend({
   LayoutContainer,
   LayoutText,
 });
+
 const useHandler = (i: number, j: number) => {
   return (e: Event) => {
     e.stopPropagation();
@@ -18,15 +20,7 @@ const useHandler = (i: number, j: number) => {
       i + 1 + '-' + j + '-fenceV',
     ];
     array.map((v) => {
-      if (e.type == 'click') {
-        return objectKeySetStoreToggle(v);
-      }
-      if (e.type == 'pointerover') {
-        objectKeySetStore.add('hover-' + v);
-      }
-      if (e.type == 'pointerout') {
-        objectKeySetStore.delete('hover-' + v);
-      }
+      commonHandler(e, v);
     });
   };
 };
@@ -42,13 +36,13 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
       onPointerOut={handler}
     >
       {/* <CustomText text={key} style={{ fontSize: 10 }} /> */}
-      <layoutText
+      {/* <layoutText
         text={key}
         layout={{
           width: 'intrinsic',
           height: 'intrinsic',
         }}
-      />
+      /> */}
     </layoutContainer>
   );
 };
