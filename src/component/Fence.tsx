@@ -20,29 +20,26 @@ export const Fence = ({ i, j, isVertical = false }: { i: number; j: number; isVe
     if ($fenceHoverSetStore.has(key)) return '#aa0000';
     return '#000000';
   })();
+  const handler = (e: Event) => {
+    if (editModeStore.mode != 'edge') return;
+    e.stopPropagation();
+    if (e.type == 'click') {
+      return fenceSetStoreToggle(key);
+    }
+    if (e.type == 'pointerover') {
+      return fenceHoverSetStore.add(key);
+    }
+    if (e.type == 'pointerout') {
+      return fenceHoverSetStore.delete(key);
+    }
+  };
   return (
     <layoutContainer
       layout={{ width, height, backgroundColor }}
-      onPointerTap={(e: Event) => {
-        if (editModeStore.mode != 'edge') return;
-        e.stopPropagation();
-        fenceSetStoreToggle(key);
-      }}
-      onPointerOver={(e: Event) => {
-        if (editModeStore.mode != 'edge') return;
-        e.stopPropagation();
-        fenceHoverSetStore.add(key);
-      }}
-      onPointerCancel={(e: Event) => {
-        if (editModeStore.mode != 'edge') return;
-        e.stopPropagation();
-        fenceHoverSetStore.delete(key);
-      }}
-      onPointerOut={(e: Event) => {
-        if (editModeStore.mode != 'edge') return;
-        e.stopPropagation();
-        fenceHoverSetStore.delete(key);
-      }}
+      onPointerTap={handler}
+      onPointerOver={handler}
+      onPointerCancel={handler}
+      onPointerOut={handler}
     >
       {/* <pixiText text={'isHover' + (isHover ? 1 : 0)}></pixiText> */}
     </layoutContainer>
