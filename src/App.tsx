@@ -26,16 +26,6 @@ export function App() {
             marginLeft: 10,
             marginBottom: 10,
           }}
-        ></layoutContainer>
-        <layoutContainer
-          layout={{
-            width: containerW,
-            justifyContent: 'flex-start',
-            gap: 5,
-            alignItems: 'center',
-            marginLeft: 10,
-            marginBottom: 10,
-          }}
         >
           <CustomText text={'mode:'} style={{ fontSize: 20 }} />
           {ModeArray.map((text) => {

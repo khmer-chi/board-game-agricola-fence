@@ -22,6 +22,7 @@
   "dependencies": {
     "@pixi/layout": "^3.0.2",
     "@pixi/react": "^8.0.2",
+    "@pixi/ui": "^2.2.4",
     "pixi.js": "^8.9.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

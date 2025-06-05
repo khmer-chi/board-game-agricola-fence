@@ -1,6 +1,5 @@
 import { extend } from '@pixi/react';
 import { squareBase } from '../config';
-import { objectKeySetStore, objectKeySetStoreToggle } from '../store/objectKeySetStore';
 import { LayoutContainer, LayoutText } from '@pixi/layout/components';
 import { settingStore } from '../store/settingStore';
 import { commonHandler } from '../commonHandler';
