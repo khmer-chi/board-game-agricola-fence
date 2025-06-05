@@ -3,7 +3,7 @@ import { Application } from '@pixi/react';
 import { LayoutResizer } from './component/LayoutResizer';
 import { fenceBase, squareBase } from './config';
 import { Content } from './component/Content';
-import { objectKeySetStore } from './store/objectKeySetStore';
+import { permanentObjectKeySetStore } from './store/permanentObjectKeySetStore';
 import { settingStore } from './store/settingStore';
 import { CustomText } from './component/CustomText';
 import { useSnapshot } from 'valtio';
@@ -12,8 +12,8 @@ import { ModeArray } from './schema/ModeSchema';
 export function App() {
   const $settingStore = useSnapshot(settingStore);
   const containerW = squareBase * 5 + fenceBase * (5 + 1);
-  const $objectKeySetStore = useSnapshot(objectKeySetStore);
-  const countFence = Array.from($objectKeySetStore).filter((v) => v.startsWith('edit-')).length;
+  const $permanentObjectKeySetStore = useSnapshot(permanentObjectKeySetStore);
+  const countFence = Array.from($permanentObjectKeySetStore).filter((v) => v.startsWith('edit-')).length;
   return (
     <Application background={'#1099bb'} resizeTo={window}>
       <LayoutResizer>
@@ -92,7 +92,7 @@ export function App() {
             layout={{ width: 'intrinsic', height: 'intrinsic', backgroundColor: '#0000ff', padding: 2, marginTop: 5 }}
             style={{ fill: '#ffffff', fontSize: 20 }}
             onPointerTap={() => {
-              objectKeySetStore.clear();
+              permanentObjectKeySetStore.clear();
             }}
           />
         </layoutContainer>
