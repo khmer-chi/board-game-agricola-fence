@@ -20,9 +20,6 @@ export const Fence = ({
   const width = isVertical ? fenceBase : squareBase;
   const height = isVertical ? squareBase : fenceBase;
   const handler = (e: Event) => {
-    if (e.type == "click") {
-      console.log(key);
-    }
     if (settingStore.mode != "edge") return;
     e.stopPropagation();
     commonHandler(e, key);

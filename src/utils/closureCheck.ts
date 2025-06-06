@@ -1,6 +1,14 @@
 import { permanentFenceKeySetStore } from "../store/permanentFenceKeySetStore";
 
 type Point = { x: number; y: number };
+const getStartPoint = (pointSet: Set<string>) => {
+  for (let x = 0; x < 6; x++) {
+    for (let y = 0; y < 4; y++) {
+      if (pointSet.has(`${x}-${y}`)) return { x, y };
+    }
+  }
+  return false;
+};
 const findShortPoint = (
   startPoint: Point,
   currentPoint: Point,
@@ -78,16 +86,9 @@ export const closureCheck = () => {
       }
     }
   });
-  const getStartPoint = () => {
-    for (let x = 0; x < 6; x++) {
-      for (let y = 0; y < 4; y++) {
-        if (pointSet.has(`${x}-${y}`)) return { x, y };
-      }
-    }
-    return false;
-  };
+
   const walkedPathSet = new Set<string>();
-  const startPoint = getStartPoint();
+  const startPoint = getStartPoint(pointSet);
 
   if (startPoint) {
     let currentPoint = startPoint;
