@@ -125,7 +125,9 @@ export function App() {
             onPointerTap={() => {
               type Point = { x: number; y: number };
               const pointSet = new Set();
+              const pathSet = new Set();
               Array.from(permanentFenceKeySetStore).map((v) => {
+                pathSet.add(v);
                 const match = v.match(/(\d)-(\d)-(\w)/);
                 if (match) {
                   const x = Number.parseInt(match[1]);
@@ -148,7 +150,7 @@ export function App() {
                 }
                 return false;
               };
-              const pathSet = new Set();
+              const walkedPathSet = new Set();
               const startPoint = getStartPoint();
               const findShortPoint = (
                 startPoint: Point,
@@ -176,38 +178,35 @@ export function App() {
                     path: `${currentPoint.x}-${currentPoint.y - 1}-V`,
                   },
                 ].filter(({ x, y, path }) => {
-                  return pointSet.has(`${x}-${y}`) && !pathSet.has(path);
+                  return (
+                    pointSet.has(`${x}-${y}`) &&
+                    pathSet.has(path) &&
+                    !walkedPathSet.has(path)
+                  );
                 });
                 if (!pointArray.length) return false;
                 let min = -1;
-                let resultPoint = { x: 0, y: 0 };
-                pointArray.map(({ x, y }) => {
+                let resultPoint = { x: 0, y: 0, path: "" };
+                pointArray.map((item) => {
+                  const { x, y } = item;
                   const result =
                     (x - startPoint.x) ** 2 + (y - currentPoint.y) ** 2;
                   if (min == -1) {
                     min = result;
-                    resultPoint = { x, y };
+                    resultPoint = item;
                   } else if (min > result) {
                     min = result;
-                    resultPoint = { x, y };
+                    resultPoint = item;
                   }
                 });
-                const type = resultPoint.x == currentPoint.x ? "V" : "H";
-                let x = currentPoint.x;
-                let y = currentPoint.y;
-                if (type == "V") {
-                  if (resultPoint.x < currentPoint.x) x = resultPoint.x;
-                }
-                if (type == "H") {
-                  if (resultPoint.y < currentPoint.y) y = resultPoint.y;
-                }
-                pathSet.add(`${x}-${y}-${type}`);
+
+                walkedPathSet.add(resultPoint.path);
                 return resultPoint;
               };
               if (startPoint) {
                 let currentPoint = startPoint;
 
-                const walkPointArray = [startPoint];
+                const walkPointArray = [];
                 for (let i = 0; i < 10; i++) {
                   const shortPoint = findShortPoint(startPoint, currentPoint);
                   if (!shortPoint) break;
@@ -215,7 +214,7 @@ export function App() {
                   currentPoint = shortPoint;
                   walkPointArray.push(currentPoint);
                 }
-                console.log(walkPointArray, pathSet);
+                console.log(walkPointArray, walkedPathSet);
               }
             }}
           />
