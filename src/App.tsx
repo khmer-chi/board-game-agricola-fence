@@ -156,6 +156,7 @@ export function App() {
                 startPoint: Point,
                 currentPoint: Point,
               ) => {
+                //目前點 依序 右、下、左、上
                 const pointArray = [
                   {
                     x: currentPoint.x + 1,
