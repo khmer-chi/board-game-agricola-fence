@@ -1,19 +1,15 @@
 import { useSnapshot } from "valtio";
-import { hoverObjectKeySetStore } from "./store/hoverObjectKeySetStore";
-import { permanentObjectKeySetStore } from "./store/permanentObjectKeySetStore";
+import { hoverFenceKeySetStore } from "./store/hoverFenceKeySetStore";
+import { permanentFenceKeySetStore } from "./store/permanentFenceKeySetStore";
 
 export const useBackgroundColor = (key: string) => {
-  const $permanentObjectKeySetStore = useSnapshot(permanentObjectKeySetStore);
-  const $hoverObjectKeySetStore = useSnapshot(hoverObjectKeySetStore);
-  const editKey = `edit-${key}`;
-  const hoverKey = `hover-${key}`;
-  if (
-    $permanentObjectKeySetStore.has(editKey) &&
-    $hoverObjectKeySetStore.has(hoverKey)
-  )
+  const $permanentFenceKeySetStore = useSnapshot(permanentFenceKeySetStore);
+  const $hoverFenceKeySetStore = useSnapshot(hoverFenceKeySetStore);
+
+  if ($permanentFenceKeySetStore.has(key) && $hoverFenceKeySetStore.has(key))
     return "#ff0000";
 
-  if ($permanentObjectKeySetStore.has(editKey)) return "#bb0000";
-  if ($hoverObjectKeySetStore.has(hoverKey)) return "#aa0000";
+  if ($permanentFenceKeySetStore.has(key)) return "#bb0000";
+  if ($hoverFenceKeySetStore.has(key)) return "#aa0000";
   return "#000000";
 };

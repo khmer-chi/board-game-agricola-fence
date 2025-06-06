@@ -15,7 +15,7 @@ export const Fence = ({
   j: number;
   isVertical?: boolean;
 }) => {
-  const key = `${i}-${j}-fence${isVertical ? "V" : "H"}`;
+  const key = `${i}-${j}-${isVertical ? "V" : "H"}`;
   const backgroundColor = useBackgroundColor(key);
   const width = isVertical ? fenceBase : squareBase;
   const height = isVertical ? squareBase : fenceBase;

@@ -4,6 +4,7 @@
   "editor.detectIndentation": false,
   "css.validate": false,
   "scss.validate": false,
+  "biome.enabled": true,
   "[typescriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },

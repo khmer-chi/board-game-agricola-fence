@@ -13,10 +13,10 @@ const useHandler = (i: number, j: number) => {
     e.stopPropagation();
     if (settingStore.mode != "square") return;
     const array = [
-      `${i}-${j}-fenceH`,
-      `${i}-${j + 1}-fenceH`,
-      `${i}-${j}-fenceV`,
-      `${i + 1}-${j}-fenceV`,
+      `${i}-${j}-H`,
+      `${i}-${j + 1}-H`,
+      `${i}-${j}-V`,
+      `${i + 1}-${j}-V`,
     ];
     array.map((v) => {
       commonHandler(e, v);

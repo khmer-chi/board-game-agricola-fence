@@ -1,9 +1,16 @@
-import { Graphics, LayoutContainer } from "@pixi/layout/components";
+import {
+  Graphics,
+  LayoutContainer,
+  LayoutText,
+  LayoutView,
+} from "@pixi/layout/components";
 import { extend } from "@pixi/react";
 import { fenceBase } from "../config";
 import { useBackgroundColor } from "../useBackgroundColor";
 extend({
+  LayoutText,
   LayoutContainer,
+  LayoutView,
   Graphics,
 });
 
@@ -23,20 +30,23 @@ export const Point = ({ i, j }: { i: number; j: number }) => {
       onPointerCancel={handler}
       onPointerOut={handler}
     >
-      <pixiGraphics
-        draw={(graphics) => {
-          graphics.clear();
-          graphics.setFillStyle({ color });
-          graphics.arc(
-            fenceBase / 2,
-            fenceBase / 2,
-            fenceBase / 2,
-            0,
-            (360 * Math.PI) / 180,
-          );
-          graphics.fill();
-        }}
-      />
+      <layoutView layout={{ position: "absolute" }}>
+        <pixiGraphics
+          draw={(graphics) => {
+            graphics.clear();
+            graphics.setFillStyle({ color });
+            graphics.arc(
+              fenceBase / 2,
+              fenceBase / 2,
+              fenceBase / 2,
+              0,
+              (360 * Math.PI) / 180,
+            );
+            graphics.fill();
+          }}
+        />
+      </layoutView>
+      <layoutText text={`${i}-${j}`} style={{ fill: "#ffffff" }} />
     </layoutContainer>
   );
 };
