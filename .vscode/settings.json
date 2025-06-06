@@ -2,40 +2,18 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
-  "editor.quickSuggestions": {
-    "strings": "on"
-  },
   "css.validate": false,
   "scss.validate": false,
-  "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "[json]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "biomejs.biome"
   },
-  /*
-   * prettier 相关
-   */
-  "prettier.tabWidth": 2, // 缩2格
-  "prettier.vueIndentScriptAndStyle": true,
-  "prettier.printWidth": 120, // 每行在这个字符数内整合代码，如果你的屏幕较宽分辨率较高可以适当加大
-  "prettier.semi": true, // 是否在每行末尾加上分号
-  "prettier.singleQuote": true, // 使用单引号代替双引号
-  /*
-   * eslint 相关
-   */
-  "eslint.enable": true,
-  "eslint.options": {
-    "alwaysShowStatus": true,
+  "[html]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
-  "eslint.validate": [
-    "javascript",
-    "javascriptreact",
-    "html",
-    "vue",
-    "typescript"
-  ],
 }

@@ -1,14 +1,14 @@
-import { extend } from '@pixi/react';
-import { fenceBase } from '../config';
-import { Graphics, LayoutContainer } from '@pixi/layout/components';
-import { useBackgroundColor } from '../useBackgroundColor';
+import { Graphics, LayoutContainer } from "@pixi/layout/components";
+import { extend } from "@pixi/react";
+import { fenceBase } from "../config";
+import { useBackgroundColor } from "../useBackgroundColor";
 extend({
   LayoutContainer,
   Graphics,
 });
 
 export const Point = ({ i, j }: { i: number; j: number }) => {
-  const key = i + '-' + j + '-point';
+  const key = `${i}-${j}-point`;
   const handler = (e: Event) => {
     // if (settingStore.mode != 'point') return;
     // e.stopPropagation();
@@ -27,7 +27,13 @@ export const Point = ({ i, j }: { i: number; j: number }) => {
         draw={(graphics) => {
           graphics.clear();
           graphics.setFillStyle({ color });
-          graphics.arc(fenceBase / 2, fenceBase / 2, fenceBase / 2, 0, (360 * Math.PI) / 180);
+          graphics.arc(
+            fenceBase / 2,
+            fenceBase / 2,
+            fenceBase / 2,
+            0,
+            (360 * Math.PI) / 180,
+          );
           graphics.fill();
         }}
       />

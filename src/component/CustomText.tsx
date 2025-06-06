@@ -1,7 +1,7 @@
-import { LayoutOptions } from '@pixi/layout';
-import { LayoutView } from '@pixi/layout/components';
-import { extend } from '@pixi/react';
-import { Text, TextStyle, TextStyleOptions } from 'pixi.js';
+import type { LayoutOptions } from "@pixi/layout";
+import { LayoutView } from "@pixi/layout/components";
+import { extend } from "@pixi/react";
+import { Text, type TextStyle, type TextStyleOptions } from "pixi.js";
 
 extend({ Text, LayoutView });
 
@@ -10,15 +10,15 @@ export const CustomText = ({
   text,
   style,
 }: {
-  layout?: Omit<LayoutOptions, 'target'>;
+  layout?: Omit<LayoutOptions, "target">;
   text: string;
   style?: TextStyle | TextStyleOptions;
 }) => {
   return (
     <layoutView
       layout={{
-        width: 'intrinsic',
-        height: 'intrinsic',
+        width: "intrinsic",
+        height: "intrinsic",
         ...layout,
       }}
     >

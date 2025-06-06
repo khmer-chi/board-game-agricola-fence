@@ -1,4 +1,4 @@
-import { proxySet } from 'valtio/utils';
+import { proxySet } from "valtio/utils";
 export const hoverObjectKeySetStore = proxySet<string>([]);
 
 export const hoverObjectKeySetStoreToggle = (key: string) => {

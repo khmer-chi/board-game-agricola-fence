@@ -1,38 +1,44 @@
-import '@pixi/layout';
-import { Application } from '@pixi/react';
-import { LayoutResizer } from './component/LayoutResizer';
-import { fenceBase, squareBase } from './config';
-import { Content } from './component/Content';
-import { permanentObjectKeySetStore } from './store/permanentObjectKeySetStore';
-import { settingStore } from './store/settingStore';
-import { CustomText } from './component/CustomText';
-import { useSnapshot } from 'valtio';
-import { ModeArray } from './schema/ModeSchema';
+import "@pixi/layout";
+import { Application } from "@pixi/react";
+import { useSnapshot } from "valtio";
+import { Content } from "./component/Content";
+import { CustomText } from "./component/CustomText";
+import { LayoutResizer } from "./component/LayoutResizer";
+import { fenceBase, squareBase } from "./config";
+import { ModeArray } from "./schema/ModeSchema";
+import { permanentObjectKeySetStore } from "./store/permanentObjectKeySetStore";
+import { settingStore } from "./store/settingStore";
 
 export function App() {
   const $settingStore = useSnapshot(settingStore);
   const containerW = squareBase * 5 + fenceBase * (5 + 1);
   const $permanentObjectKeySetStore = useSnapshot(permanentObjectKeySetStore);
-  const countFence = Array.from($permanentObjectKeySetStore).filter((v) => v.startsWith('edit-')).length;
+  const countFence = Array.from($permanentObjectKeySetStore).filter((v) =>
+    v.startsWith("edit-"),
+  ).length;
   return (
-    <Application background={'#1099bb'} resizeTo={window}>
+    <Application background={"#1099bb"} resizeTo={window}>
       <LayoutResizer>
         <layoutContainer
           layout={{
             width: containerW,
-            justifyContent: 'flex-start',
+            justifyContent: "flex-start",
             gap: 5,
-            alignItems: 'center',
+            alignItems: "center",
             marginLeft: 10,
             marginBottom: 10,
           }}
         >
-          <CustomText text={'mode:'} style={{ fontSize: 20 }} />
+          <CustomText text={"mode:"} style={{ fontSize: 20 }} />
           {ModeArray.map((text) => {
             return (
               <layoutContainer
                 key={text}
-                layout={{ backgroundColor: $settingStore.mode == text ? '#000011' : '#0000ff', padding: 10 }}
+                layout={{
+                  backgroundColor:
+                    $settingStore.mode == text ? "#000011" : "#0000ff",
+                  padding: 10,
+                }}
                 onPointerTap={(e: Event) => {
                   e.stopPropagation();
                   settingStore.mode = text;
@@ -41,10 +47,10 @@ export function App() {
                 <CustomText
                   text={text}
                   layout={{
-                    width: 'intrinsic',
-                    height: 'intrinsic',
+                    width: "intrinsic",
+                    height: "intrinsic",
                   }}
-                  style={{ fill: '#ffffff', fontSize: 20 }}
+                  style={{ fill: "#ffffff", fontSize: 20 }}
                 />
                 {/* <layoutText
                   key={text}
@@ -66,31 +72,39 @@ export function App() {
           layout={{
             width: containerW,
             height: 50,
-            justifyContent: 'flex-start',
-            alignItems: 'center',
+            justifyContent: "flex-start",
+            alignItems: "center",
 
             marginBottom: 5,
             paddingLeft: 10,
-            backgroundColor: '#ffffff',
+            backgroundColor: "#ffffff",
             gap: 10,
           }}
         >
-          <CustomText text={'fence:' + countFence} style={{ fontSize: 20 }} />
+          <CustomText text={`fence:${countFence}`} style={{ fontSize: 20 }} />
         </layoutContainer>
         <layoutContainer
           layout={{
             width: containerW,
-            flexWrap: 'wrap',
-            alignContent: 'flex-start',
+            flexWrap: "wrap",
+            alignContent: "flex-start",
           }}
         >
           <Content />
         </layoutContainer>
-        <layoutContainer layout={{ width: containerW, justifyContent: 'flex-start' }}>
+        <layoutContainer
+          layout={{ width: containerW, justifyContent: "flex-start" }}
+        >
           <layoutText
-            text={'reset'}
-            layout={{ width: 'intrinsic', height: 'intrinsic', backgroundColor: '#0000ff', padding: 2, marginTop: 5 }}
-            style={{ fill: '#ffffff', fontSize: 20 }}
+            text={"reset"}
+            layout={{
+              width: "intrinsic",
+              height: "intrinsic",
+              backgroundColor: "#0000ff",
+              padding: 2,
+              marginTop: 5,
+            }}
+            style={{ fill: "#ffffff", fontSize: 20 }}
             onPointerTap={() => {
               permanentObjectKeySetStore.clear();
             }}

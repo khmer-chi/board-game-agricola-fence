@@ -1,7 +1,7 @@
-import { subscribe } from 'valtio';
-import { proxySet } from 'valtio/utils';
+import { subscribe } from "valtio";
+import { proxySet } from "valtio/utils";
 export const permanentObjectKeySetStore = proxySet<string>(
-  JSON.parse(localStorage.getItem('permanentObjectKeySetStore') ?? '[]') || []
+  JSON.parse(localStorage.getItem("permanentObjectKeySetStore") ?? "[]") || [],
 );
 
 export const permanentObjectKeySetStoreToggle = (key: string) => {
@@ -14,5 +14,8 @@ export const permanentObjectKeySetStoreToggle = (key: string) => {
 
 subscribe(permanentObjectKeySetStore, () => {
   // console.log(Array.from(permanentObjectKeySetStore));
-  localStorage.setItem('permanentObjectKeySetStore', JSON.stringify(Array.from(permanentObjectKeySetStore)));
+  localStorage.setItem(
+    "permanentObjectKeySetStore",
+    JSON.stringify(Array.from(permanentObjectKeySetStore)),
+  );
 });
