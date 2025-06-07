@@ -54,7 +54,7 @@ const findShortPoint = (
   let resultPoint = { x: 0, y: 0, path: "" };
   pointArray.map((item) => {
     const { x, y } = item;
-    const result = (x - startPoint.x) ** 2 + (y - currentPoint.y) ** 2;
+    const result = (x - startPoint.x) ** 2 + (y - startPoint.y) ** 2;
     if (min == -1) {
       min = result;
       resultPoint = item;
@@ -105,6 +105,6 @@ export const closureCheck = () => {
       currentPoint = shortPoint;
       walkPointArray.push(currentPoint);
     }
-    console.log(walkPointArray, walkedPathSet);
+    console.log(walkPointArray, walkedPathSet, pointSet);
   }
 };
