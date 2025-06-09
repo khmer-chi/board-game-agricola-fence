@@ -1,7 +1,6 @@
-import { permanentFenceKeySetStore } from "../store/permanentFenceKeySetStore";
-
 type Point = { x: number; y: number };
 const getStartPoint = (pointSet: Set<string>) => {
+  if (!pointSet.size) return false;
   for (let x = 0; x < 6; x++) {
     for (let y = 0; y < 4; y++) {
       if (pointSet.has(`${x}-${y}`)) return { x, y };
@@ -13,12 +12,12 @@ const findShortPoint = (
   startPoint: Point,
   currentPoint: Point,
   {
-    pointSet,
-    pathSet,
+    usedPointSet,
+    usedPathSet,
     walkedPathSet,
   }: {
-    pointSet: Set<string>;
-    pathSet: Set<string>;
+    usedPointSet: Set<string>;
+    usedPathSet: Set<string>;
     walkedPathSet: Set<string>;
   },
 ) => {
@@ -46,7 +45,9 @@ const findShortPoint = (
     },
   ].filter(({ x, y, path }) => {
     return (
-      pointSet.has(`${x}-${y}`) && pathSet.has(path) && !walkedPathSet.has(path)
+      usedPointSet.has(`${x}-${y}`) &&
+      usedPathSet.has(path) &&
+      !walkedPathSet.has(path)
     );
   });
   if (!pointArray.length) return false;
@@ -67,44 +68,53 @@ const findShortPoint = (
   walkedPathSet.add(resultPoint.path);
   return resultPoint;
 };
-export const closureCheck = () => {
-  const pointSet = new Set<string>();
-  const pathSet = new Set<string>();
-  Array.from(permanentFenceKeySetStore).map((v) => {
-    pathSet.add(v);
+
+export const closureCheck = (fenceKeySetStore: Set<string>) => {
+  const usedPointSet = new Set<string>();
+  const usedPathSet = new Set<string>();
+  Array.from(fenceKeySetStore).map((v) => {
+    usedPathSet.add(v);
     const match = v.match(/(\d)-(\d)-(\w)/);
     if (match) {
       const x = Number.parseInt(match[1]);
       const y = Number.parseInt(match[2]);
       const type = match[3];
       if (type == "H") {
-        pointSet.add(`${x}-${y}`);
-        pointSet.add(`${x + 1}-${y}`);
+        usedPointSet.add(`${x}-${y}`);
+        usedPointSet.add(`${x + 1}-${y}`);
       } else if (type == "V") {
-        pointSet.add(`${x}-${y}`);
-        pointSet.add(`${x}-${y + 1}`);
+        usedPointSet.add(`${x}-${y}`);
+        usedPointSet.add(`${x}-${y + 1}`);
       }
     }
   });
+  const unusedPointSet = new Set(Array.from(usedPointSet));
+  let loopCount = 0;
+  const result = [];
+  while (true) {
+    const startPoint = getStartPoint(unusedPointSet);
 
-  const walkedPathSet = new Set<string>();
-  const startPoint = getStartPoint(pointSet);
-
-  if (startPoint) {
-    let currentPoint = startPoint;
-
+    if (!startPoint) break;
+    const walkedPathSet = new Set<string>();
     const walkPointArray = [];
-    for (let i = 0; i < 10; i++) {
+    let currentPoint = startPoint;
+    while (true) {
       const shortPoint = findShortPoint(startPoint, currentPoint, {
-        pointSet,
-        pathSet,
+        usedPointSet,
+        usedPathSet,
         walkedPathSet,
       });
-      if (!shortPoint) break;
 
+      if (!shortPoint) break;
       currentPoint = shortPoint;
       walkPointArray.push(currentPoint);
+      unusedPointSet.delete(`${currentPoint.x}-${currentPoint.y}`);
     }
-    console.log(walkPointArray, walkedPathSet, pointSet);
+    if (currentPoint.x != startPoint.x) return false;
+    if (currentPoint.y != startPoint.y) return false;
+    result.push(walkedPathSet);
+
+    if (++loopCount >= 100) return false;
   }
+  return result;
 };

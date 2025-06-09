@@ -24,7 +24,7 @@ const useHandler = (i: number, j: number) => {
   };
 };
 export const Place = ({ i, j }: { i: number; j: number }) => {
-  const key = `${i}-${j}-place`;
+  const key = `${i}-${j}`;
   const handler = useHandler(i, j);
   return (
     <layoutContainer
@@ -33,6 +33,7 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
         height: squareBase,
         backgroundColor: "#00ff00",
         alignItems: "center",
+        justifyContent: "center",
       }}
       onPointerTap={handler}
       onPointerOver={handler}
@@ -40,13 +41,13 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
       onPointerOut={handler}
     >
       {/* <CustomText text={key} style={{ fontSize: 10 }} /> */}
-      {/* <layoutText
+      <layoutText
         text={key}
         layout={{
-          width: 'intrinsic',
-          height: 'intrinsic',
+          width: "intrinsic",
+          height: "intrinsic",
         }}
-      /> */}
+      />
     </layoutContainer>
   );
 };
