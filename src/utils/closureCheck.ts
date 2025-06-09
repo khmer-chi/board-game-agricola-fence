@@ -1,4 +1,5 @@
-type Point = { x: number; y: number };
+import type { Point } from "../schema/PointSchema";
+
 const getStartPoint = (pointSet: Set<string>) => {
   if (!pointSet.size) return false;
   for (let x = 0; x < 6; x++) {
@@ -72,22 +73,22 @@ const findShortPoint = (
 export const closureCheck = (fenceKeySetStore: Set<string>) => {
   const usedPointSet = new Set<string>();
   const usedPathSet = new Set<string>();
-  Array.from(fenceKeySetStore).map((v) => {
-    usedPathSet.add(v);
-    const match = v.match(/(\d)-(\d)-(\w)/);
-    if (match) {
-      const x = Number.parseInt(match[1]);
-      const y = Number.parseInt(match[2]);
-      const type = match[3];
-      if (type == "H") {
-        usedPointSet.add(`${x}-${y}`);
-        usedPointSet.add(`${x + 1}-${y}`);
-      } else if (type == "V") {
-        usedPointSet.add(`${x}-${y}`);
-        usedPointSet.add(`${x}-${y + 1}`);
-      }
+  for (const key of fenceKeySetStore) {
+    usedPathSet.add(key);
+    const match = key.split("-");
+    if (!match.length) throw Error();
+    const x = Number.parseInt(match[0]);
+    const y = Number.parseInt(match[1]);
+    const type = match[2];
+    if (type == "H") {
+      usedPointSet.add(`${x}-${y}`);
+      usedPointSet.add(`${x + 1}-${y}`);
+    } else if (type == "V") {
+      usedPointSet.add(`${x}-${y}`);
+      usedPointSet.add(`${x}-${y + 1}`);
     }
-  });
+  }
+
   const unusedPointSet = new Set(Array.from(usedPointSet));
   let loopCount = 0;
   const result = [];
