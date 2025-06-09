@@ -1,14 +1,5 @@
 import type { Point } from "../schema/PointSchema";
 
-const getStartPoint = (pointSet: Set<string>) => {
-  if (!pointSet.size) return false;
-  for (let x = 0; x < 6; x++) {
-    for (let y = 0; y < 4; y++) {
-      if (pointSet.has(`${x}-${y}`)) return { x, y };
-    }
-  }
-  return false;
-};
 const findShortPoint = (
   startPoint: Point,
   currentPoint: Point,
@@ -67,12 +58,25 @@ const findShortPoint = (
   });
 
   walkedPathSet.add(resultPoint.path);
+
+  if (resultPoint.x == startPoint.x && resultPoint.y == startPoint.y)
+    return false;
+
   return resultPoint;
 };
 
 export const closureCheck = (fenceKeySetStore: Set<string>) => {
   const usedPointSet = new Set<string>();
   const usedPathSet = new Set<string>();
+  const countPointHasPath = new Map<string, Set<string>>();
+  const addUsedPointSet = (key: string, type: string) => {
+    if (!countPointHasPath.has(key))
+      countPointHasPath.set(key, new Set<string>());
+    const set = countPointHasPath.get(key) as Set<string>;
+    set.add(type);
+
+    usedPointSet.add(key);
+  };
   for (const key of fenceKeySetStore) {
     usedPathSet.add(key);
     const match = key.split("-");
@@ -81,24 +85,35 @@ export const closureCheck = (fenceKeySetStore: Set<string>) => {
     const y = Number.parseInt(match[1]);
     const type = match[2];
     if (type == "H") {
-      usedPointSet.add(`${x}-${y}`);
-      usedPointSet.add(`${x + 1}-${y}`);
+      addUsedPointSet(`${x}-${y}`, "right");
+      addUsedPointSet(`${x + 1}-${y}`, "left");
     } else if (type == "V") {
-      usedPointSet.add(`${x}-${y}`);
-      usedPointSet.add(`${x}-${y + 1}`);
+      addUsedPointSet(`${x}-${y}`, "down");
+      addUsedPointSet(`${x}-${y + 1}`, "up");
     }
   }
 
-  const unusedPointSet = new Set(Array.from(usedPointSet));
-  let loopCount = 0;
-  const result = [];
-  while (true) {
-    const startPoint = getStartPoint(unusedPointSet);
+  const startPointArray = Array.from(countPointHasPath)
+    .filter(([key, set]) => {
+      //右邊緣忽略
+      if (key.startsWith("5")) return false;
+      //下邊緣忽略
+      if (key.endsWith("3")) return false;
+      //找點和柵欄連結是右下
+      return set.has("right") && set.has("down");
+    })
+    .map(([key]) => {
+      const [x, y] = key.split("-");
+      return { x: Number.parseInt(x), y: Number.parseInt(y) } as Point;
+    });
 
-    if (!startPoint) break;
+  const result: Set<string>[] = [];
+  for (let i = 0; i < startPointArray.length; i++) {
+    let loopCount = 0;
+    const startPoint = startPointArray[i];
     const walkedPathSet = new Set<string>();
-    const walkPointArray = [];
     let currentPoint = startPoint;
+
     while (true) {
       const shortPoint = findShortPoint(startPoint, currentPoint, {
         usedPointSet,
@@ -108,14 +123,9 @@ export const closureCheck = (fenceKeySetStore: Set<string>) => {
 
       if (!shortPoint) break;
       currentPoint = shortPoint;
-      walkPointArray.push(currentPoint);
-      unusedPointSet.delete(`${currentPoint.x}-${currentPoint.y}`);
+      if (++loopCount >= 100) throw Error("loopCount");
     }
-    if (currentPoint.x != startPoint.x) return false;
-    if (currentPoint.y != startPoint.y) return false;
     result.push(walkedPathSet);
-
-    if (++loopCount >= 100) return false;
   }
   return result;
 };
