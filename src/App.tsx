@@ -1,6 +1,6 @@
 import "@pixi/layout";
 import { Application } from "@pixi/react";
-import { useSnapshot } from "valtio";
+import { subscribe, useSnapshot } from "valtio";
 import { Content } from "./component/Content";
 import { CustomText } from "./component/CustomText";
 import { LayoutResizer } from "./component/LayoutResizer";
@@ -10,11 +10,25 @@ import { permanentFenceKeySetStore } from "./store/permanentFenceKeySetStore";
 import { settingStore } from "./store/settingStore";
 import { closureCheck } from "./utils/closureCheck";
 import { fenchToPastures } from "./utils/fenchToPastures";
+import { useEffect } from "react";
 
 export function App() {
   const $settingStore = useSnapshot(settingStore);
   const containerW = squareBase * 5 + fenceBase * (5 + 1);
   const $permanentFenceKeySetStore = useSnapshot(permanentFenceKeySetStore);
+  // useEffect(() => {
+  //   subscribe(permanentFenceKeySetStore, () => {
+  //     const closureFenceArray = closureCheck(permanentFenceKeySetStore);
+  //     if (closureFenceArray) {
+  //       for (let i = 0; i < closureFenceArray.length; i++) {
+  //         const patureSet = fenchToPastures(closureFenceArray[i]);
+  //         console.log(patureSet);
+  //       }
+  //     } else {
+  //       console.log("it's not closure");
+  //     }
+  //   });
+  // }, []);
 
   return (
     <Application background={"#1099bb"} resizeTo={window}>
@@ -116,7 +130,7 @@ export function App() {
               permanentFenceKeySetStore.clear();
             }}
           />
-          <layoutText
+          {/* <layoutText
             text={"check closure"}
             layout={{
               width: "intrinsic",
@@ -136,7 +150,7 @@ export function App() {
                 console.log("it's not closure");
               }
             }}
-          />
+          /> */}
         </layoutContainer>
       </LayoutResizer>
     </Application>
