@@ -1,5 +1,5 @@
 import type { Point } from "../schema/PointSchema";
-import { findShortPoint } from "./findShortPoint";
+import { followClockwisefindPoint } from "./followClockwisefindPoint";
 
 export const closureCheck = (fenceKeySetStore: Set<string>) => {
   const usedPointSet = new Set<string>();
@@ -43,25 +43,38 @@ export const closureCheck = (fenceKeySetStore: Set<string>) => {
       return { x: Number.parseInt(x), y: Number.parseInt(y) } as Point;
     });
 
+  const finallyUsedFence = new Set<string>(fenceKeySetStore);
+
   const result: Set<string>[] = [];
   for (let i = 0; i < startPointArray.length; i++) {
     let loopCount = 0;
     const startPoint = startPointArray[i];
     const walkedPathSet = new Set<string>();
     let currentPoint = startPoint;
-
+    let direction = "⇡";
     while (true) {
-      const shortPoint = findShortPoint(startPoint, currentPoint, {
+      const nextPoint = followClockwisefindPoint(
+        currentPoint,
+        direction,
         usedPointSet,
         usedPathSet,
         walkedPathSet,
-      });
+      );
 
-      if (!shortPoint) break;
-      currentPoint = shortPoint;
+      if (!nextPoint) return false;
+
+      currentPoint = nextPoint;
+      direction = nextPoint.direction;
+      if (nextPoint.x == startPoint.x && nextPoint.y == startPoint.y) break;
+
       if (++loopCount >= 100) throw Error("loopCount");
+    }
+
+    for (const key of walkedPathSet) {
+      finallyUsedFence.delete(key);
     }
     result.push(walkedPathSet);
   }
+  if (finallyUsedFence.size) return false;
   return result;
 };

@@ -1,32 +1,39 @@
 import type { Point } from "../schema/PointSchema";
-//→=↓→⇡←
-//↓=←↓→⇡
-//←=⇡←↓→
-//↑=→⇡←↓
+
+type PointWidthType = Point & {
+  path: string;
+};
 export const followClockwisefindPoint = (
-  currentPoint: Point,
-  type: number,
+  { x, y }: Point,
+  direction: string,
   usedPointSet: Set<string>,
+  usedPathSet: Set<string>,
   walkedPathSet: Set<string>,
 ) => {
-  type PointWidthType = Point & { type: number };
-  const sortArray: PointWidthType[] = [
-    { x: currentPoint.x, y: currentPoint.y + 1, type: 0 },
-    { x: currentPoint.x + 1, y: currentPoint.y, type: 1 },
-    { x: currentPoint.x, y: currentPoint.y - 1, type: 2 },
-    { x: currentPoint.x - 1, y: currentPoint.y, type: 3 },
-  ];
-  for (let i = 0; i < type; i++) {
-    sortArray.unshift(sortArray.pop() as PointWidthType);
-  }
-  for (let i = 0; i < sortArray.length; i++) {
-    const item = sortArray[i];
-    const { x, y, type } = item;
+  const directionMap = new Map<string, PointWidthType>([
+    ["↓", { x: x, y: y + 1, path: `${x}-${y}-V` }],
+    ["→", { x: x + 1, y: y, path: `${x}-${y}-H` }],
+    ["⇡", { x: x, y: y - 1, path: `${x}-${y - 1}-V` }],
+    ["←", { x: x - 1, y: y, path: `${x - 1}-${y}-H` }],
+  ]);
+  const directionSortArrayMap = new Map<string, string[]>([
+    ["↓", ["←", "↓", "→"]],
+    ["→", ["↓", "→", "⇡"]],
+    ["⇡", ["→", "⇡", "←"]],
+    ["←", ["⇡", "←", "↓"]],
+  ]);
+  const directionSortArray = directionSortArrayMap.get(direction) ?? [];
+  for (let i = 0; i < directionSortArray.length; i++) {
+    const direction = directionSortArray[i];
+    const item = directionMap.get(direction) as PointWidthType;
+    const { x, y, path } = item;
     const key = `${x}-${y}`;
-    if (usedPointSet.has(key)) {
-      walkedPathSet.add(key);
-      return type;
+    if (walkedPathSet.has(path)) continue;
+    if (usedPointSet.has(key) && usedPathSet.has(path)) {
+      walkedPathSet.add(path);
+      return { ...item, direction };
     }
   }
+
   return false;
 };

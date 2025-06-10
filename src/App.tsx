@@ -132,6 +132,8 @@ export function App() {
                   const patureSet = fenchToPastures(closureFenceArray[i]);
                   console.log(patureSet);
                 }
+              } else {
+                console.log("it's not closure");
               }
             }}
           />
