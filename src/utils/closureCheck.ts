@@ -21,11 +21,11 @@ export const closureCheck = (fenceKeySetStore: Set<string>) => {
     const y = Number.parseInt(match[1]);
     const type = match[2];
     if (type == "H") {
-      addUsedPointSet(`${x}-${y}`, "right");
-      addUsedPointSet(`${x + 1}-${y}`, "left");
+      addUsedPointSet(`${x}-${y}`, "→");
+      addUsedPointSet(`${x + 1}-${y}`, "←");
     } else if (type == "V") {
-      addUsedPointSet(`${x}-${y}`, "down");
-      addUsedPointSet(`${x}-${y + 1}`, "up");
+      addUsedPointSet(`${x}-${y}`, "↓");
+      addUsedPointSet(`${x}-${y + 1}`, "⇡");
     }
   }
 
@@ -36,7 +36,7 @@ export const closureCheck = (fenceKeySetStore: Set<string>) => {
       //下邊緣忽略
       if (key.endsWith("3")) return false;
       //找點和柵欄連結是右下
-      return set.has("right") && set.has("down");
+      return set.has("→") && set.has("↓");
     })
     .map(([key]) => {
       const [x, y] = key.split("-");

@@ -10,8 +10,7 @@ export const fenchToPastures = (fenceStoreSet: Set<string>) => {
     const type = match[2];
     if (type == "V") continue;
     if (!map.has(x)) map.set(x, []);
-    const array = map.get(x) ?? [];
-    array.push(y);
+    (map.get(x) as number[]).push(y);
   }
 
   const pastureSet = new Set<string>();
