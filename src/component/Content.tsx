@@ -1,14 +1,16 @@
+import type { ReactElement } from "react";
 import { Fence } from "./Fence";
 import { Place } from "./Place";
 import { Point } from "./Point";
-const func = (result: unknown[], j: number) => {
+
+const func = (result: ReactElement[], j: number) => {
   for (let i = 0; i <= 5; i++) {
     result.push(<Point i={i} j={j} key={`${i}-${j}-point`} />);
     if (i == 5) continue;
     result.push(<Fence i={i} j={j} key={`${i}-${j}-fenceH`} />);
   }
 };
-const func1 = (result: unknown[], j: number) => {
+const func1 = (result: ReactElement[], j: number) => {
   for (let i = 0; i <= 5; i++) {
     result.push(
       <Fence i={i} j={j} isVertical={true} key={`${i}-${j}-fenceV`} />,
@@ -18,7 +20,7 @@ const func1 = (result: unknown[], j: number) => {
   }
 };
 export const Content = () => {
-  const result: any[] = [];
+  const result: ReactElement[] = [];
   for (let i = 0; i <= 3; i++) {
     func(result, i);
     if (i == 3) continue;
