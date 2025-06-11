@@ -8,6 +8,7 @@ import { fenceBase, squareBase } from "./config";
 import { ModeArray } from "./schema/ModeSchema";
 import { permanentFenceKeySetStore } from "./store/permanentFenceKeySetStore";
 import { settingStore } from "./store/settingStore";
+import { permanentPlaceKeyMapStoreReset } from "./store/permanentPlaceKeyMapStore";
 
 export function App() {
   const $settingStore = useSnapshot(settingStore);
@@ -111,6 +112,7 @@ export function App() {
             style={{ fill: "#ffffff", fontSize: 20 }}
             onPointerTap={() => {
               permanentFenceKeySetStore.clear();
+              permanentPlaceKeyMapStoreReset();
             }}
           />
           {/* <layoutText

@@ -3,6 +3,10 @@ import { extend } from "@pixi/react";
 import { commonHandler } from "../commonHandler";
 import { squareBase } from "../config";
 import { settingStore } from "../store/settingStore";
+import { permanentPlaceKeyMapStore } from "../store/permanentPlaceKeyMapStore";
+// import { useSnapshot } from "valtio";
+// import { useCallback } from "react";
+import { CustomText } from "./CustomText";
 extend({
   LayoutContainer,
   LayoutText,
@@ -12,6 +16,10 @@ const useHandler = (i: number, j: number) => {
   return (e: Event) => {
     e.stopPropagation();
     if (settingStore.mode != "square") return;
+    const key = `${i}-${j}`;
+    if (permanentPlaceKeyMapStore.has(key)) {
+      if (permanentPlaceKeyMapStore.get(key) != "pastures") return;
+    }
     const array = [
       `${i}-${j}-H`,
       `${i}-${j + 1}-H`,
@@ -26,6 +34,7 @@ const useHandler = (i: number, j: number) => {
 export const Place = ({ i, j }: { i: number; j: number }) => {
   const key = `${i}-${j}`;
   const handler = useHandler(i, j);
+  const text = key;
   return (
     <layoutContainer
       layout={{
@@ -40,14 +49,14 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
       onPointerCancel={handler}
       onPointerOut={handler}
     >
-      {/* <CustomText text={key} style={{ fontSize: 10 }} /> */}
-      <layoutText
-        text={key}
+      <CustomText text={text} style={{ fontSize: 10, align: "center" }} />
+      {/* <layoutText
+        text={text}
         layout={{
           width: "intrinsic",
           height: "intrinsic",
         }}
-      />
+      /> */}
     </layoutContainer>
   );
 };

@@ -1,7 +1,8 @@
 import { subscribe } from "valtio";
 import { proxySet } from "valtio/utils";
-import { closureCheck } from "../utils/closureCheck";
-import { fenchToPastures } from "../utils/fenchToPastures";
+
+import { getPastures } from "../utils/getPastures";
+import { NotClosureError } from "../utils/error/NotClosureError";
 export const permanentFenceKeySetStore = proxySet<string>(
   JSON.parse(localStorage.getItem("permanentFenceKeySetStore") ?? "[]") || [],
 );
@@ -19,14 +20,12 @@ subscribe(permanentFenceKeySetStore, () => {
     "permanentFenceKeySetStore",
     JSON.stringify(Array.from(permanentFenceKeySetStore)),
   );
-  const closureFenceArray = closureCheck(permanentFenceKeySetStore);
-  if (closureFenceArray) {
-    console.log("it's closure");
-    for (let i = 0; i < closureFenceArray.length; i++) {
-      const patureSet = fenchToPastures(closureFenceArray[i]);
-      console.log(patureSet);
+  console.clear();
+  try {
+    console.log(getPastures(permanentFenceKeySetStore));
+  } catch (e) {
+    if (e instanceof NotClosureError) {
+      console.log("it's not closure");
     }
-  } else {
-    console.log("it's not closure");
   }
 });

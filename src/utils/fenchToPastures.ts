@@ -1,3 +1,5 @@
+import { permanentPlaceKeyMapStore } from "../store/permanentPlaceKeyMapStore";
+
 export const fenchToPastures = (fenceStoreSet: Set<string>) => {
   const fenceArray = Array.from(fenceStoreSet);
   const map = new Map<number, number[]>();
@@ -17,7 +19,10 @@ export const fenchToPastures = (fenceStoreSet: Set<string>) => {
   map.forEach((yArray, x) => {
     const [start, end] = yArray.toSorted((a, b) => a - b);
     for (let y = start; y < end; y++) {
-      pastureSet.add(`${x}-${y}`);
+      const key = `${x}-${y}`;
+      pastureSet.add(key);
+      // if (!permanentPlaceKeyMapStore.has(key))
+      //   permanentPlaceKeyMapStore.set(key, "pastures");
     }
   });
   return pastureSet;
