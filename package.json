@@ -2,7 +2,6 @@
   "name": "board-game-agricola-fence",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "vite --port 5599",
     "build": "tsc -b && vite build",
@@ -13,13 +12,28 @@
   "author": "",
   "license": "ISC",
   "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/board-game-agricola-fence.umd.cjs",
+  "module": "./dist/board-game-agricola-fence.js",
+  "types": "./dist/board-game-agricola-fence.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/board-game-agricola-fence.js",
+      "require": "./dist/board-game-agricola-fence.umd.cjs"
+    }
+  },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@types/node": "^24.0.1",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
-    "@vitejs/plugin-react": "^4.5.0",
+    "@vitejs/plugin-react": "^4.5.2",
+    "rollup-plugin-visualizer": "^6.0.3",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
     "@pixi/layout": "^3.0.2",
