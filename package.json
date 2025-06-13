@@ -1,6 +1,6 @@
 {
   "name": "board-game-agricola-fence",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "scripts": {
     "dev": "vite --port 5599",
@@ -43,5 +43,6 @@
     "react-dom": "^19.1.0",
     "valibot": "^1.1.0",
     "valtio": "^2.1.5"
-  }
+  },
+  "repository": "https://github.com/khmer-chi/board-game-agricola-fence.git"
 }
