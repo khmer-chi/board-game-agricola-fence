@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: 23
       # - run: npm ci
-      - run: npm build
+      - run: npm run build
       - run: npm audit signatures
       - name: release
         env:
