@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 import dts from "vite-plugin-dts";
 
-// import { visualizer } from "rollup-plugin-visualizer";
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
@@ -13,12 +12,6 @@ export default defineConfig({
     dts({
       rollupTypes: true,
     }),
-    // visualizer({
-    //   open: true, // 構建完成後自動開啟瀏覽器顯示分析圖表
-    //   gzipSize: true, // 顯示 gzip 壓縮後的大小
-    //   brotliSize: true, // 顯示 brotli 壓縮後的大小
-    //   filename: "dist/stats.html", // 輸出分析檔案的路徑
-    // }),
   ],
   build: {
     lib: {

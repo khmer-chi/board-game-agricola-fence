@@ -13,7 +13,10 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "files": ["dist", "README.md"],
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "module": "./dist/board-game-agricola-fence.js",
   "types": "./dist/board-game-agricola-fence.d.ts",
   "exports": {
@@ -30,7 +33,6 @@
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
-    "rollup-plugin-visualizer": "^6.0.3",
     "semantic-release": "^24.2.5",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
