@@ -6,13 +6,14 @@
     "dev": "vite --port 5599",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "format": "pnpm biome format --write ./src"
+    "format": "pnpm biome format --write ./src",
+    "semantic-release": "semantic-release"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "files": ["dist"],
+  "files": ["dist", "README.md"],
   "module": "./dist/board-game-agricola-fence.js",
   "types": "./dist/board-game-agricola-fence.d.ts",
   "exports": {
@@ -30,6 +31,7 @@
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
     "rollup-plugin-visualizer": "^6.0.3",
+    "semantic-release": "^24.2.5",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4"
