@@ -1,8 +1,8 @@
 import { subscribe } from "valtio";
 import { proxySet } from "valtio/utils";
 
-import { getPastures } from "../utils/getPastures";
-import { NotClosureError } from "../utils/error/NotClosureError";
+import { getPastures } from "#utils/getPastures";
+import { NotClosureError } from "#utils/error/NotClosureError";
 export const permanentFenceKeySetStore = proxySet<string>(
   JSON.parse(localStorage.getItem("permanentFenceKeySetStore") ?? "[]") || [],
 );

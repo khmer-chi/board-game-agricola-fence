@@ -1,4 +1,4 @@
-import type { Point } from "../schema/PointSchema";
+import type { Point } from "#schema/PointSchema";
 
 type PointWidthType = Point & {
   path: string;

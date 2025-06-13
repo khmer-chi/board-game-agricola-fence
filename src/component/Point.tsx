@@ -1,3 +1,6 @@
+import { fenceBase } from "#config";
+import { useBackgroundColor } from "#useBackgroundColor";
+
 import {
   Graphics,
   LayoutContainer,
@@ -5,8 +8,7 @@ import {
   LayoutView,
 } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
-import { fenceBase } from "../config";
-import { useBackgroundColor } from "../useBackgroundColor";
+
 extend({
   LayoutText,
   LayoutContainer,

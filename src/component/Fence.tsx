@@ -1,9 +1,10 @@
+import { commonHandler } from "#commonHandler";
+import { fenceBase, squareBase } from "#config";
+import { settingStore } from "#store/settingStore";
+import { useBackgroundColor } from "#useBackgroundColor";
+
 import { LayoutContainer, LayoutText } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
-import { commonHandler } from "../commonHandler";
-import { fenceBase, squareBase } from "../config";
-import { settingStore } from "../store/settingStore";
-import { useBackgroundColor } from "../useBackgroundColor";
 extend({ LayoutContainer, LayoutText });
 
 export const Fence = ({

@@ -1,12 +1,13 @@
+import { commonHandler } from "#commonHandler";
+
+import { settingStore } from "#store/settingStore";
+import { permanentPlaceKeyMapStore } from "#store/permanentPlaceKeyMapStore";
+
+import { CustomText } from "./CustomText";
+
 import { LayoutContainer, LayoutText } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
-import { commonHandler } from "../commonHandler";
-import { squareBase } from "../config";
-import { settingStore } from "../store/settingStore";
-import { permanentPlaceKeyMapStore } from "../store/permanentPlaceKeyMapStore";
-// import { useSnapshot } from "valtio";
-// import { useCallback } from "react";
-import { CustomText } from "./CustomText";
+import { squareBase } from "#config";
 extend({
   LayoutContainer,
   LayoutText,

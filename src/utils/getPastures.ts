@@ -1,8 +1,8 @@
-import { permanentFenceKeySetStore } from "../store/permanentFenceKeySetStore";
-import { NotClosureError } from "./error/NotClosureError";
-import { intersectionSquareGroup } from "./intersectionSquareGroup";
-import { pathSetToObject } from "./pathSetToObject";
-import { pointSetToObject } from "./pointSetToObject";
+import { permanentFenceKeySetStore } from "#store/permanentFenceKeySetStore";
+import { NotClosureError } from "#utils/error/NotClosureError";
+import { intersectionSquareGroup } from "#utils/intersectionSquareGroup";
+import { pathSetToObject } from "#utils/pathSetToObject";
+import { pointSetToObject } from "#utils/pointSetToObject";
 
 export const getPastures = (set: Set<string>) => {
   const list = pathSetToObject(set);

@@ -1,7 +1,9 @@
 import type { LayoutOptions } from "@pixi/layout";
+import type { TextStyle, TextStyleOptions } from "pixi.js";
+
+import { Text } from "pixi.js";
 import { LayoutView } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
-import { Text, type TextStyle, type TextStyleOptions } from "pixi.js";
 
 extend({ Text, LayoutView });
 

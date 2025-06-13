@@ -1,5 +1,3 @@
-import { permanentPlaceKeyMapStore } from "../store/permanentPlaceKeyMapStore";
-
 export const fenchToPastures = (fenceStoreSet: Set<string>) => {
   const fenceArray = Array.from(fenceStoreSet);
   const map = new Map<number, number[]>();

@@ -1,5 +1,5 @@
-import type { Point } from "../schema/PointSchema";
-import { followClockwisefindPoint } from "./followClockwisefindPoint";
+import type { Point } from "#schema/PointSchema";
+import { followClockwisefindPoint } from "#utils/followClockwisefindPoint";
 
 export const closureCheck = (fenceKeySetStore: Set<string>) => {
   const usedPointSet = new Set<string>();

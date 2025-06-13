@@ -1,6 +1,6 @@
 import { subscribe } from "valtio";
 import { proxyMap } from "valtio/utils";
-import type { Place } from "../schema/PlaceSchema";
+import type { Place } from "#schema/PlaceSchema";
 
 export const permanentPlaceKeyMapStore = proxyMap<string, Place>(
   JSON.parse(

@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
-import { Fence } from "./Fence";
-import { Place } from "./Place";
-import { Point } from "./Point";
+import { Fence } from "#component/Fence";
+import { Place } from "#component/Place";
+import { Point } from "#component/Point";
 
 const func = (result: ReactElement[], j: number) => {
   for (let i = 0; i <= 5; i++) {

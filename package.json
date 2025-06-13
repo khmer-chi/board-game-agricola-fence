@@ -12,9 +12,7 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "./dist/board-game-agricola-fence.umd.cjs",
   "module": "./dist/board-game-agricola-fence.js",
   "types": "./dist/board-game-agricola-fence.d.ts",
@@ -23,6 +21,9 @@
       "import": "./dist/board-game-agricola-fence.js",
       "require": "./dist/board-game-agricola-fence.umd.cjs"
     }
+  },
+  "imports": {
+    "#*": "./src/*.js"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",

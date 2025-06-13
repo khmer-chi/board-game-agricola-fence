@@ -1,6 +1,6 @@
 import { useSnapshot } from "valtio";
-import { hoverFenceKeySetStore } from "./store/hoverFenceKeySetStore";
-import { permanentFenceKeySetStore } from "./store/permanentFenceKeySetStore";
+import { hoverFenceKeySetStore } from "#store/hoverFenceKeySetStore";
+import { permanentFenceKeySetStore } from "#store/permanentFenceKeySetStore";
 
 export const useBackgroundColor = (key: string) => {
   const $permanentFenceKeySetStore = useSnapshot(permanentFenceKeySetStore);

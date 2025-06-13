@@ -1,13 +1,18 @@
 import "@pixi/layout";
+import "@pixi/layout/react";
 import { useSnapshot } from "valtio";
-import { Content } from "./component/Content";
-import { CustomText } from "./component/CustomText";
 import { fenceBase, squareBase } from "./config";
-import { ModeArray } from "./schema/ModeSchema";
-import { permanentFenceKeySetStore } from "./store/permanentFenceKeySetStore";
-import { settingStore } from "./store/settingStore";
-import { permanentPlaceKeyMapStoreReset } from "./store/permanentPlaceKeyMapStore";
-import { AppContainer } from "./component/AppContainer";
+import { ModeArray } from "#schema/ModeSchema";
+import { permanentFenceKeySetStore } from "#store/permanentFenceKeySetStore";
+import { settingStore } from "#store/settingStore";
+import { permanentPlaceKeyMapStoreReset } from "#store/permanentPlaceKeyMapStore";
+import { AppContainer } from "#component/AppContainer";
+import { Content } from "#component/Content";
+import { extend } from "@pixi/react";
+import { LayoutContainer } from "@pixi/layout/components";
+import { CustomText } from "#component/CustomText";
+
+extend({ LayoutContainer });
 
 export function App({ el }: { el?: HTMLElement }) {
   const $settingStore = useSnapshot(settingStore);

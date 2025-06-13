@@ -1,5 +1,5 @@
 import { Application } from "@pixi/react";
-import { LayoutResizer } from "./LayoutResizer";
+import { LayoutResizer } from "#component/LayoutResizer";
 import type { PropsWithChildren } from "react";
 
 export const AppContainer = ({
