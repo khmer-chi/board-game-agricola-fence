@@ -1,6 +1,6 @@
 {
   "name": "board-game-agricola-fence",
-  "version": "1.0.1",
+  "version": "0.0.0-development",
   "description": "",
   "scripts": {
     "dev": "vite --port 5599",
