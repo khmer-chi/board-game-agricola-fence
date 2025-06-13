@@ -6,17 +6,13 @@
     "dev": "vite --port 5599",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "format": "pnpm biome format --write ./src",
-    "semantic-release": "semantic-release"
+    "format": "pnpm biome format --write ./src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
-  "files": [
-    "dist",
-    "README.md"
-  ],
+  "files": ["dist", "README.md"],
   "module": "./dist/board-game-agricola-fence.js",
   "types": "./dist/board-game-agricola-fence.d.ts",
   "exports": {
