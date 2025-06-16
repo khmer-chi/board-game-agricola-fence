@@ -13,7 +13,7 @@ export const AppContainer = ({
   };
 
   return (
-    <Application background={"#1099bb"} resizeTo={window}>
+    <Application background={"#1099bb"} resizeTo={el ?? window}>
       <LayoutResizer getSize={getSize}>{children}</LayoutResizer>
     </Application>
   );
