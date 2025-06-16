@@ -1,7 +1,9 @@
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
-import { Fence } from "#component/Fence";
-const go = (el: HTMLElement) => {
+import { permanentFenceKeySetStore as fenceKeySetStore } from "#store/permanentFenceKeySetStore";
+import { permanentPlaceKeyMapStore as placeKeyMapStore } from "#store/permanentPlaceKeyMapStore";
+const renderElement = (el: HTMLElement) => {
   createRoot(el).render(<App />);
 };
-export { Fence, App, go };
+
+export { fenceKeySetStore, placeKeyMapStore, renderElement };

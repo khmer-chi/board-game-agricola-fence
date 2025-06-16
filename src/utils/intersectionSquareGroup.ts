@@ -1,4 +1,4 @@
-import { checkIntersection } from "#store/checkIntersection";
+import { checkIntersection } from "#utils/checkIntersection";
 
 export const intersectionSquareGroup = (squareGroupSetArray: Set<string>[]) => {
   const result = [];

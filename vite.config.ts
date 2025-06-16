@@ -29,7 +29,7 @@ export default defineConfig({
         "@pixi/react",
         "@pixi/layout",
         "@pixi/ui",
-        // "valibot",
+        "valibot",
         // "valtio",
       ],
       // output: {
