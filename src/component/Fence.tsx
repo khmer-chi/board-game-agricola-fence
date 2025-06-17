@@ -16,15 +16,15 @@ export const Fence = ({
   j: number;
   isVertical?: boolean;
 }) => {
-  const commonHandler = useCommonHandler();
   const key = `${i}-${j}-${isVertical ? "V" : "H"}`;
+  const commonHandler = useCommonHandler(key);
   const backgroundColor = useBackgroundColor(key);
   const width = isVertical ? fenceBase : squareBase;
   const height = isVertical ? squareBase : fenceBase;
   const handler = (e: Event) => {
     if (settingStore.mode != "edge") return;
     e.stopPropagation();
-    commonHandler(e, key);
+    commonHandler(e);
   };
   return (
     <layoutContainer

@@ -14,7 +14,6 @@ extend({
 });
 
 const useHandler = (i: number, j: number) => {
-  const commonHandler = useCommonHandler();
   return (e: Event) => {
     e.stopPropagation();
     if (settingStore.mode != "square") return;
@@ -29,7 +28,8 @@ const useHandler = (i: number, j: number) => {
       `${i + 1}-${j}-V`,
     ];
     array.map((v) => {
-      commonHandler(e, v);
+      const commonHandler = useCommonHandler(v);
+      commonHandler(e);
     });
   };
 };

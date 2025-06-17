@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { useContext, type ReactElement } from "react";
 import { Fence } from "#component/Fence";
 import { Place } from "#component/Place";
 import { Point } from "#component/Point";
