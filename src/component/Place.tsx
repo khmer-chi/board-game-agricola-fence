@@ -1,4 +1,4 @@
-import { commonHandler } from "#commonHandler";
+import { useCommonHandler } from "#useCommonHandler";
 
 import { settingStore } from "#store/settingStore";
 import { permanentPlaceKeyMapStore } from "#store/permanentPlaceKeyMapStore";
@@ -7,13 +7,14 @@ import { CustomText } from "./CustomText";
 
 import { LayoutContainer, LayoutText } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
-import { squareBase } from "#config";
+import { debugText, squareBase } from "#config";
 extend({
   LayoutContainer,
   LayoutText,
 });
 
 const useHandler = (i: number, j: number) => {
+  const commonHandler = useCommonHandler();
   return (e: Event) => {
     e.stopPropagation();
     if (settingStore.mode != "square") return;
@@ -50,7 +51,9 @@ export const Place = ({ i, j }: { i: number; j: number }) => {
       onPointerCancel={handler}
       onPointerOut={handler}
     >
-      <CustomText text={text} style={{ fontSize: 10, align: "center" }} />
+      {debugText && (
+        <CustomText text={text} style={{ fontSize: 10, align: "center" }} />
+      )}
       {/* <layoutText
         text={text}
         layout={{

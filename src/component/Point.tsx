@@ -1,4 +1,4 @@
-import { fenceBase } from "#config";
+import { debugText, fenceBase } from "#config";
 import { useBackgroundColor } from "#useBackgroundColor";
 
 import {
@@ -48,7 +48,9 @@ export const Point = ({ i, j }: { i: number; j: number }) => {
           }}
         />
       </layoutView>
-      <layoutText text={`${i}-${j}`} style={{ fill: "#ffffff" }} />
+      {debugText && (
+        <layoutText text={`${i}-${j}`} style={{ fill: "#ffffff" }} />
+      )}
     </layoutContainer>
   );
 };

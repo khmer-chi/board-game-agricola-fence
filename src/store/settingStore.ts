@@ -1,10 +1,17 @@
 import { proxy, subscribe } from "valtio";
 import type { Mode } from "#schema/ModeSchema";
-
-export const settingStore = proxy<{ mode: Mode }>({
-  mode: (localStorage.getItem("editModeStore") as Mode) ?? "square",
-});
+type Setting = {
+  mode: Mode;
+};
+export const settingStore = proxy<Setting>(
+  JSON.parse(
+    localStorage.getItem("settingStore") ??
+      JSON.stringify({
+        mode: "edge",
+      } as { mode: Mode }),
+  ),
+);
 
 subscribe(settingStore, () => {
-  localStorage.setItem("editModeStore", settingStore.mode);
+  localStorage.setItem("editModeStore", JSON.stringify(settingStore));
 });

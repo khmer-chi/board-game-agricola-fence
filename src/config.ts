@@ -1,2 +1,3 @@
-export const fenceBase = 30;
+export const fenceBase = 10;
 export const squareBase = 50;
+export const debugText = false;

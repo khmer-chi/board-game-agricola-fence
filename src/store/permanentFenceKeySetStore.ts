@@ -20,12 +20,12 @@ subscribe(permanentFenceKeySetStore, () => {
     "permanentFenceKeySetStore",
     JSON.stringify(Array.from(permanentFenceKeySetStore)),
   );
-  console.clear();
-  try {
-    console.log(getPastures(permanentFenceKeySetStore));
-  } catch (e) {
-    if (e instanceof NotClosureError) {
-      console.log("it's not closure");
-    }
-  }
+  // console.clear();
+  // try {
+  //   console.log(getPastures(permanentFenceKeySetStore));
+  // } catch (e) {
+  //   if (e instanceof NotClosureError) {
+  //     console.log("it's not closure");
+  //   }
+  // }
 });

@@ -1,5 +1,5 @@
-import { commonHandler } from "#commonHandler";
-import { fenceBase, squareBase } from "#config";
+import { useCommonHandler } from "#useCommonHandler";
+import { debugText, fenceBase, squareBase } from "#config";
 import { settingStore } from "#store/settingStore";
 import { useBackgroundColor } from "#useBackgroundColor";
 
@@ -16,6 +16,7 @@ export const Fence = ({
   j: number;
   isVertical?: boolean;
 }) => {
+  const commonHandler = useCommonHandler();
   const key = `${i}-${j}-${isVertical ? "V" : "H"}`;
   const backgroundColor = useBackgroundColor(key);
   const width = isVertical ? fenceBase : squareBase;
@@ -33,10 +34,12 @@ export const Fence = ({
       onPointerCancel={handler}
       onPointerOut={handler}
     >
-      <layoutText
-        text={`${i}-${j}${isVertical ? "V" : "H"}`}
-        style={{ fill: "#ffffff" }}
-      />
+      {debugText && (
+        <layoutText
+          text={`${i}-${j}${isVertical ? "V" : "H"}`}
+          style={{ fill: "#ffffff" }}
+        />
+      )}
     </layoutContainer>
   );
 };
