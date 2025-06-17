@@ -15,8 +15,11 @@ extend({
   LayoutView,
   Graphics,
 });
-
-export const Point = ({ i, j }: { i: number; j: number }) => {
+type Param = {
+  i: number;
+  j: number;
+};
+export const Point = ({ i, j }: Param) => {
   const key = `${i}-${j}-point`;
   const handler = (e: Event) => {
     // if (settingStore.mode != 'point') return;

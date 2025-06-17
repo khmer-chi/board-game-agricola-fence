@@ -12,8 +12,11 @@ extend({
   LayoutContainer,
   LayoutText,
 });
-
-const useHandler = (i: number, j: number) => {
+type Param = {
+  i: number;
+  j: number;
+};
+const useHandler = ({ i, j }: Param) => {
   return (e: Event) => {
     e.stopPropagation();
     if (settingStore.mode != "square") return;
@@ -33,9 +36,9 @@ const useHandler = (i: number, j: number) => {
     });
   };
 };
-export const Place = ({ i, j }: { i: number; j: number }) => {
+export const Place = ({ i, j }: Param) => {
   const key = `${i}-${j}`;
-  const handler = useHandler(i, j);
+  const handler = useHandler({ i, j });
   const text = key;
   return (
     <layoutContainer

@@ -6,16 +6,12 @@ import { useBackgroundColor } from "#useBackgroundColor";
 import { LayoutContainer, LayoutText } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
 extend({ LayoutContainer, LayoutText });
-
-export const Fence = ({
-  i,
-  j,
-  isVertical = false,
-}: {
+type Param = {
   i: number;
   j: number;
   isVertical?: boolean;
-}) => {
+};
+export const Fence = ({ i, j, isVertical = false }: Param) => {
   const key = `${i}-${j}-${isVertical ? "V" : "H"}`;
   const commonHandler = useCommonHandler(key);
   const backgroundColor = useBackgroundColor(key);
