@@ -1,10 +1,12 @@
-import { permanentFenceKeySetStore } from "#store/permanentFenceKeySetStore";
 import { NotClosureError } from "#utils/error/NotClosureError";
 import { intersectionSquareGroup } from "#utils/intersectionSquareGroup";
 import { pathSetToObject } from "#utils/pathSetToObject";
 import { pointSetToObject } from "#utils/pointSetToObject";
 
-export const getPastures = (set: Set<string>) => {
+export const getPastures = (
+  set: Set<string>,
+  permanentFenceKeySetStore: Set<string>,
+) => {
   const list = pathSetToObject(set);
   const map = new Map<string, string[]>();
   const countPointConnectFence = new Map<string, number>();
