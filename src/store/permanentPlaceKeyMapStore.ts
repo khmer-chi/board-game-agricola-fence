@@ -11,6 +11,12 @@ export const permanentPlaceKeyMapStore = proxyMap<string, Place>(
       ] as [string, Place][]),
   ) || [],
 );
+subscribe(permanentPlaceKeyMapStore, () => {
+  localStorage.setItem(
+    "permanentPlaceKeyMapStore",
+    JSON.stringify(Array.from(permanentPlaceKeyMapStore)),
+  );
+});
 export const permanentPlaceKeyMapStoreReset = () => {
   permanentPlaceKeyMapStore.clear();
   new Map([
@@ -18,9 +24,3 @@ export const permanentPlaceKeyMapStoreReset = () => {
     ["0-2", "wooden-house"],
   ]);
 };
-subscribe(permanentPlaceKeyMapStore, () => {
-  localStorage.setItem(
-    "permanentPlaceKeyMapStore",
-    JSON.stringify(Array.from(permanentPlaceKeyMapStore)),
-  );
-});

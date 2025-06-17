@@ -1,4 +1,5 @@
 import { debugText, fenceBase } from "#config";
+import type { BaseStore } from "#schema/BaseStore";
 import { useBackgroundColor } from "#useBackgroundColor";
 
 import {
@@ -18,15 +19,16 @@ extend({
 type Param = {
   i: number;
   j: number;
+  store: BaseStore;
 };
-export const Point = ({ i, j }: Param) => {
+export const Point = ({ i, j, store }: Param) => {
   const key = `${i}-${j}-point`;
   const handler = (e: Event) => {
     // if (settingStore.mode != 'point') return;
     // e.stopPropagation();
     // commonHandler(e, key);
   };
-  const color = useBackgroundColor(key);
+  const color = useBackgroundColor(key, store);
   return (
     <layoutContainer
       layout={{ width: fenceBase, height: fenceBase }}

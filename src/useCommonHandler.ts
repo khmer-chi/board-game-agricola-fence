@@ -1,12 +1,9 @@
-import { hoverFenceKeySetStore } from "#store/hoverFenceKeySetStore";
-import { permanentFenceKeySetStore } from "#store/permanentFenceKeySetStore";
+import type { BaseStore } from "#schema/BaseStore";
 import { toggleStringSet } from "#utils/toggleStringSet";
-// import type { proxySet } from "valtio/utils";
 
 export const useCommonHandler = (
   key: string,
-  // permanentFenceKeySetStore: (key: string) => void,
-  // hoverFenceKeySetStore: ReturnType<typeof proxySet<string>>,
+  { permanentFenceKeySetStore, hoverFenceKeySetStore }: BaseStore,
 ) => {
   return (e: Event) => {
     if (e.type == "click")

@@ -1,13 +1,12 @@
 import { useCommonHandler } from "#useCommonHandler";
 
-import { settingStore } from "#store/settingStore";
-import { permanentPlaceKeyMapStore } from "#store/permanentPlaceKeyMapStore";
-
 import { CustomText } from "./CustomText";
 
 import { LayoutContainer, LayoutText } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
 import { debugText, squareBase } from "#config";
+
+import type { BaseStore } from "#schema/BaseStore";
 extend({
   LayoutContainer,
   LayoutText,
@@ -15,8 +14,10 @@ extend({
 type Param = {
   i: number;
   j: number;
+  store: BaseStore;
 };
-const useHandler = ({ i, j }: Param) => {
+const useHandler = ({ i, j, store }: Param) => {
+  const { settingStore, permanentPlaceKeyMapStore } = store;
   return (e: Event) => {
     e.stopPropagation();
     if (settingStore.mode != "square") return;
@@ -31,14 +32,18 @@ const useHandler = ({ i, j }: Param) => {
       `${i + 1}-${j}-V`,
     ];
     array.map((v) => {
-      const commonHandler = useCommonHandler(v);
+      const commonHandler = useCommonHandler(v, store);
       commonHandler(e);
     });
   };
 };
-export const Place = ({ i, j }: Param) => {
+export const Place = ({ i, j, store }: Param) => {
   const key = `${i}-${j}`;
-  const handler = useHandler({ i, j });
+  const handler = useHandler({
+    i,
+    j,
+    store,
+  });
   const text = key;
   return (
     <layoutContainer

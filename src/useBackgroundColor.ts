@@ -1,12 +1,9 @@
+import type { BaseStore } from "#schema/BaseStore";
 import { useSnapshot } from "valtio";
-// import type { proxySet } from "valtio/utils";
-import { hoverFenceKeySetStore } from "#store/hoverFenceKeySetStore";
-import { permanentFenceKeySetStore } from "#store/permanentFenceKeySetStore";
 
 export const useBackgroundColor = (
   key: string,
-  // permanentFenceKeySetStore: ReturnType<typeof proxySet<string>>,
-  // hoverFenceKeySetStore: ReturnType<typeof proxySet<string>>,
+  { permanentFenceKeySetStore, hoverFenceKeySetStore }: BaseStore,
 ) => {
   const $permanentFenceKeySetStore = useSnapshot(permanentFenceKeySetStore);
   const $hoverFenceKeySetStore = useSnapshot(hoverFenceKeySetStore);
