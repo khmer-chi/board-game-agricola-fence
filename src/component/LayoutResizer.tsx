@@ -1,24 +1,26 @@
 import { useApplication } from "@pixi/react";
+import { useState, type JSX, type PropsWithChildren } from "react";
+type Param = PropsWithChildren<{
+  getSize: () => { w: number; h: number };
+  render?: ({ w, h }: { w: number; h: number }) => JSX.Element;
+}>;
 
-export const LayoutResizer = <T extends any>({
-  children,
-  getSize,
-}: { children: T; getSize: () => { w: number; h: number } }): T => {
+export const LayoutResizer = ({ getSize, render }: Param) => {
   const { app } = useApplication();
-  const { w, h } = getSize();
+  const [size, setSize] = useState(getSize());
   app.stage.layout = {
-    width: w,
-    height: h,
+    width: size.w,
+    height: size.h,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
   };
   app.renderer.on("resize", () => {
-    const { w, h } = getSize();
+    setSize(getSize());
     app.stage.layout = {
-      width: w,
-      height: h,
+      width: size.w,
+      height: size.h,
     };
   });
-  return children;
+  return render?.(size);
 };

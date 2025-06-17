@@ -1,11 +1,11 @@
 import { Application } from "@pixi/react";
 import { LayoutResizer } from "#component/LayoutResizer";
-import type { PropsWithChildren } from "react";
-
-export const AppContainer = ({
-  children,
-  el,
-}: PropsWithChildren<{ el?: HTMLElement }>) => {
+import type { JSX, PropsWithChildren } from "react";
+type Param = PropsWithChildren<{
+  el?: HTMLElement;
+  render?: ({ w, h }: { w: number; h: number }) => JSX.Element;
+}>;
+export const AppContainer = ({ render, el }: Param) => {
   const getSize = () => {
     if (el) return { w: el.clientWidth, h: el.clientHeight };
 
@@ -14,7 +14,7 @@ export const AppContainer = ({
 
   return (
     <Application background={"#1099bb"} resizeTo={el ?? window}>
-      <LayoutResizer getSize={getSize}>{children}</LayoutResizer>
+      <LayoutResizer getSize={getSize} render={render} />
     </Application>
   );
 };
