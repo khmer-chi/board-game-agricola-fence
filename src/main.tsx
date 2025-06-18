@@ -1,5 +1,7 @@
-import { createRoot } from "react-dom/client";
-import { App } from "#App";
-const el = document.getElementById("root") as HTMLElement;
+import { renderBoard } from "#entry";
 
-createRoot(el).render(<App />);
+const { watch } = renderBoard(document.getElementById("root")!);
+
+watch((fenceStore, closureStore) => {
+  console.log(fenceStore, closureStore);
+});
