@@ -25,11 +25,11 @@ export default defineConfig({
       external: [
         "react",
         "react-dom",
-        "pixi.js",
-        "@pixi/react",
-        "@pixi/layout",
-        "@pixi/ui",
-        "valibot",
+        // "pixi.js",
+        // "@pixi/react",
+        // "@pixi/layout",
+        // "@pixi/ui",
+        // "valibot",
         // "valtio",
       ],
       // output: {
