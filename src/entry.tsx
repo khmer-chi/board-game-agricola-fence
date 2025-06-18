@@ -41,7 +41,7 @@ export const renderBoard = (el: HTMLElement) => {
     />,
   );
   return {
-    permanentFenceKeySetStore: store.permanentFenceKeySetStore,
+    fenceKeySet: store.permanentFenceKeySetStore,
     watch: (
       cb?: (
         fenceStore: Set<string>,

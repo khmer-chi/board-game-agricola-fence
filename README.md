@@ -1,3 +1,33 @@
+# how to install
+
+npm install board-game-agricola-fence
+
+# how to use
+
+```js
+const { fenceKeySet, watch } = renderBoard(document.getElementById("root")!);
+//設定柵欄
+[
+  "3-0-H",
+  "2-1-V",
+  "2-0-V",
+  "2-0-H",
+  "2-2-H",
+  "4-2-H",
+  "5-1-V",
+  "4-0-H",
+  "5-0-V",
+  "4-1-V",
+  "3-1-H",
+  "2-1-H",
+  "3-2-H",
+].map((key) => fenceKeySet.add(key));
+//監看柵欄並回傳柵欄和圈地
+watch((fenceStore, closureStore) => {
+  console.log(fenceStore, closureStore);
+});
+```
+
 # 農家樂圈地判斷
 
 1. 需要判斷圈地為連續封閉
@@ -10,8 +40,8 @@
 # TODO
 
 1. [x] 判斷柵欄圈地是封閉
-2. [ ] place store
-3. [ ] 模組化 npm
+2. [x] place store
+3. [x] 模組化 npm
 
 # 注意事項
 
