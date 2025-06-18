@@ -3,10 +3,7 @@ import { intersectionSquareGroup } from "#utils/intersectionSquareGroup";
 import { pathSetToObject } from "#utils/pathSetToObject";
 import { pointSetToObject } from "#utils/pointSetToObject";
 
-export const getPastures = (
-  set: Set<string>,
-  permanentFenceKeySetStore: Set<string>,
-) => {
+export const getPastures = (set: Set<string>) => {
   const list = pathSetToObject(set);
   const map = new Map<string, string[]>();
   const countPointConnectFence = new Map<string, number>();
@@ -82,7 +79,7 @@ export const getPastures = (
       },
     );
   }
-  if (expectFenceSet.size != permanentFenceKeySetStore.size) {
+  if (expectFenceSet.size != set.size) {
     throw new NotClosureError("expect fence incorrect", 1);
   }
   return intersectionSquareGroup(squareGroupSetArray);
