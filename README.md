@@ -5,6 +5,7 @@ npm install board-game-agricola-fence
 # how to use
 
 ```js
+import { renderBoard } from "board-game-agricola-fence";
 const { fenceKeySet, watch } = renderBoard(document.getElementById("root")!);
 //設定柵欄
 [
