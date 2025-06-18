@@ -26,6 +26,9 @@
       },
       "complexity": {
         "noUselessTypeConstraint": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "off"
       }
     }
   },
