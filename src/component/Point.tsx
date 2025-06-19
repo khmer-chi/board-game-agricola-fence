@@ -9,6 +9,7 @@ import {
   LayoutView,
 } from "@pixi/layout/components";
 import { extend } from "@pixi/react";
+import { useCallback } from "react";
 
 extend({
   LayoutText,
@@ -23,35 +24,27 @@ type Param = {
 };
 export const Point = ({ i, j, store }: Param) => {
   const key = `${i}-${j}-point`;
-  const handler = (e: Event) => {
-    // if (settingStore.mode != 'point') return;
-    // e.stopPropagation();
-    // commonHandler(e, key);
-  };
+
   const color = useBackgroundColor(key, store);
+  const drawCallback = useCallback(
+    (graphics: Graphics) => {
+      graphics.clear();
+      graphics.setFillStyle({ color });
+      graphics.arc(
+        fenceBase / 2,
+        fenceBase / 2,
+        fenceBase / 2,
+        0,
+        (360 * Math.PI) / 180,
+      );
+      graphics.fill();
+    },
+    [color],
+  );
   return (
-    <layoutContainer
-      layout={{ width: fenceBase, height: fenceBase }}
-      onPointerTap={handler}
-      onPointerOver={handler}
-      onPointerCancel={handler}
-      onPointerOut={handler}
-    >
+    <layoutContainer layout={{ width: fenceBase, height: fenceBase }}>
       <layoutView layout={{ position: "absolute" }}>
-        <pixiGraphics
-          draw={(graphics) => {
-            graphics.clear();
-            graphics.setFillStyle({ color });
-            graphics.arc(
-              fenceBase / 2,
-              fenceBase / 2,
-              fenceBase / 2,
-              0,
-              (360 * Math.PI) / 180,
-            );
-            graphics.fill();
-          }}
-        />
+        <pixiGraphics draw={drawCallback} />
       </layoutView>
       {debugText && (
         <layoutText text={`${i}-${j}`} style={{ fill: "#ffffff" }} />

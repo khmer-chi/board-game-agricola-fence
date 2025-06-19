@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "vite --port 5599",
     "build": "tsc -b && vite build",
-    "preview": "vite preview",
     "format": "pnpm biome format --write ./src"
   },
   "keywords": [],
