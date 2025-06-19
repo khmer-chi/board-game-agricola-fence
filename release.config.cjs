@@ -17,33 +17,9 @@ module.exports = {
         ],
       },
     ],
-    [
-      "@semantic-release/release-notes-generator",
-      {
-        preset: "angular",
-        presetConfig: {
-          types: [
-            { type: "feat", section: "Features" },
-            { type: "fix", section: "Bug Fixes" },
-            { type: "chore", section: "Miscellaneous Chores", hidden: false }, // 確保 changelog 包含 chore
-            { type: "docs", section: "Documentation", hidden: false },
-            { type: "style", section: "Styles", hidden: false },
-            { type: "refactor", section: "Code Refactors", hidden: false },
-            { type: "test", section: "Tests", hidden: false },
-            { type: "ci", section: "CI/CD", hidden: false },
-          ],
-        },
-      },
-    ],
+    "@semantic-release/release-notes-generator",
     "@semantic-release/changelog",
-    [
-      "@semantic-release/git",
-      {
-        assets: ["package.json", "CHANGELOG.md"],
-        message:
-          "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}",
-      },
-    ],
+    "@semantic-release/git",
     "@semantic-release/github",
   ],
 };
