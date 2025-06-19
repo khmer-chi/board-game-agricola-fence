@@ -4,7 +4,7 @@ module.exports = {
     [
       "@semantic-release/commit-analyzer",
       {
-        preset: "conventionalCommits", // 使用 Conventional Commits 規範
+        preset: "angular", // 使用 Conventional Commits 規範
         releaseRules: [
           { type: "feat", release: "minor" }, // 預設：新功能增加次版本
           { type: "fix", release: "patch" }, // 預設：修復增加修補版本
@@ -20,7 +20,7 @@ module.exports = {
     [
       "@semantic-release/release-notes-generator",
       {
-        preset: "conventionalCommits",
+        preset: "angular",
         presetConfig: {
           types: [
             { type: "feat", section: "Features" },
