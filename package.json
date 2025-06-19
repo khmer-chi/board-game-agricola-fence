@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite --port 5599",
     "build": "tsc -b && vite build",
-    "format": "pnpm biome format --write ./src"
+    "format": "pnpm biome format --write ./src",
+    "semantic-release": "semantic-release"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +25,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^13.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/release-notes-generator": "^14.0.3",
     "@types/node": "^24.0.1",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
