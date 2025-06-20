@@ -29,6 +29,10 @@ watch((fenceStore, closureStore) => {
 });
 ```
 
+# DEMO
+
+https://taiwan.im/article/board-game-agricola-fence.html
+
 # 農家樂圈地判斷
 
 1. 需要判斷圈地為連續封閉

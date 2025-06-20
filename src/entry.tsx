@@ -5,7 +5,8 @@ import { createStore } from "#utils/createStore";
 import { NotClosureError } from "#utils/error/NotClosureError";
 import { subscribe } from "valtio";
 import { fenceBase, squareBase } from "#config";
-
+import { Content as FenceContent } from "#component/Content";
+export { FenceContent };
 export const renderBoard = (el: HTMLElement) => {
   const containerW = squareBase * 5 + fenceBase * (5 + 1);
   const containerH = squareBase * 3 + fenceBase * (3 + 1);

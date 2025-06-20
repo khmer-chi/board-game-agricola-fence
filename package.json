@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite --port 5599",
     "build": "tsc -b && vite build",
-    "format": "pnpm biome format --write ./src",
-    "semantic-release": "semantic-release"
+    "format": "pnpm biome format --write ./src"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +31,6 @@
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
-    "semantic-release": "^24.2.5",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-dts": "^4.5.4"
@@ -47,5 +45,8 @@
     "valibot": "^1.1.0",
     "valtio": "^2.1.5"
   },
-  "repository": "https://github.com/khmer-chi/board-game-agricola-fence.git"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/khmer-chi/board-game-agricola-fence.git"
+  }
 }
